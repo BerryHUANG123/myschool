@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.amazon.mws:amazon-mws-sdk:0.2.0-rc0">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/amazon/mws/amazon-mws-sdk/0.2.0-rc0/amazon-mws-sdk-0.2.0-rc0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/amazon/mws/amazon-mws-sdk/0.2.0-rc0/amazon-mws-sdk-0.2.0-rc0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/amazon/mws/amazon-mws-sdk/0.2.0-rc0/amazon-mws-sdk-0.2.0-rc0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
