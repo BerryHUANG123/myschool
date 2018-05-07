@@ -1,0 +1,22 @@
+[INFO][main][2018-05-01 23:58:26][org.springframework.jdbc.datasource.DriverManagerDataSource] - Loaded JDBC driver: com.mysql.jdbc.Driver
+[INFO][main][2018-05-02 00:15:07][org.springframework.jdbc.datasource.DriverManagerDataSource] - Loaded JDBC driver: com.mysql.jdbc.Driver
+[INFO][main][2018-05-02 09:55:33][org.springframework.jdbc.datasource.DriverManagerDataSource] - Loaded JDBC driver: com.mysql.jdbc.Driver
+[INFO][main][2018-05-02 09:55:35][org.springframework.beans.factory.xml.XmlBeanDefinitionReader] - Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+[INFO][main][2018-05-02 09:55:35][org.springframework.jdbc.support.SQLErrorCodesFactory] - SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]
+[INFO][main][2018-05-02 09:56:00][org.springframework.jdbc.datasource.DriverManagerDataSource] - Loaded JDBC driver: com.mysql.jdbc.Driver
+[INFO][main][2018-05-02 10:01:59][org.springframework.jdbc.datasource.DriverManagerDataSource] - Loaded JDBC driver: com.mysql.jdbc.Driver
+[DEBUG][main][2018-05-02 10:01:59][org.springframework.jdbc.core.JdbcTemplate] - Executing SQL query [select count(*)  from t_user]
+[INFO][main][2018-05-02 10:02:57][org.springframework.jdbc.datasource.DriverManagerDataSource] - Loaded JDBC driver: com.mysql.jdbc.Driver
+[INFO][main][2018-05-02 10:03:13][org.springframework.jdbc.datasource.DriverManagerDataSource] - Loaded JDBC driver: com.mysql.jdbc.Driver
+[DEBUG][main][2018-05-02 10:03:13][org.springframework.jdbc.core.JdbcTemplate] - Executing SQL query [select count(*)  from t_user]
+[INFO][main][2018-05-02 10:03:38][org.springframework.jdbc.datasource.DriverManagerDataSource] - Loaded JDBC driver: com.mysql.jdbc.Driver
+[DEBUG][main][2018-05-02 10:03:38][org.springframework.jdbc.core.JdbcTemplate] - Executing SQL query [select count(*)  from t_user]
+[INFO][main][2018-05-02 10:35:35][org.springframework.jdbc.datasource.DriverManagerDataSource] - Loaded JDBC driver: com.mysql.jdbc.Driver
+[DEBUG][main][2018-05-02 10:35:35][org.springframework.jdbc.core.JdbcTemplate] - Executing SQL query [select count(*)  from t_user]
+[DEBUG][main][2018-05-02 10:35:36][org.springframework.jdbc.core.JdbcTemplate] - Executing SQL query [select * from t_user]
+[INFO][main][2018-05-02 10:37:34][org.springframework.jdbc.datasource.DriverManagerDataSource] - Loaded JDBC driver: com.mysql.jdbc.Driver
+[DEBUG][main][2018-05-02 10:37:34][org.springframework.jdbc.core.JdbcTemplate] - Executing SQL query [select count(*)  from t_user]
+[DEBUG][main][2018-05-02 10:37:35][org.springframework.jdbc.core.JdbcTemplate] - Executing SQL query [select * from t_user]
+[INFO][main][2018-05-02 10:39:58][org.springframework.jdbc.datasource.DriverManagerDataSource] - Loaded JDBC driver: com.mysql.jdbc.Driver
+[DEBUG][main][2018-05-02 10:39:58][org.springframework.jdbc.core.JdbcTemplate] - Executing SQL query [select count(*)  from t_user]
+[DEBUG][main][2018-05-02 10:39:59][org.springframework.jdbc.core.JdbcTemplate] - Executing SQL query [select * from t_user]
