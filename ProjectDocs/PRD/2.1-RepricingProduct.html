@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title>2.1-RepricingProduct</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="frontend\katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+      <style> 
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+ 
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview   ">
+      <h1>BuyBox智能调价模块</h1>
+<h2>调价产品管理</h2>
+<p>用户使用目的：</p>
+<ul>
+<li>查看所有产品的状态，包括自己创建的产品及跟卖的产品</li>
+<li>搜索产品，搜索条件可以是产品标题，ASIN， SKU</li>
+<li>按条件过滤产品</li>
+<li>选择产品添加调价规则</li>
+</ul>
+<p><strong>页面组成</strong>：</p>
+<ul>
+<li>调价产品列表页面</li>
+<li>竞争分析页面</li>
+<li>……</li>
+</ul>
+<h2 class="mume-header" id="%E8%B0%83%E4%BB%B7%E4%BA%A7%E5%93%81%E5%88%97%E8%A1%A8%E9%A1%B5%E9%9D%A2">调价产品列表页面</h2>
+
+<p><mark>显示产品库中所有可调价的产品</mark>（即有竞争的产品），不需要额外添加调价产品。</p>
+<h3 class="mume-header" id="%E4%BA%A7%E5%93%81%E5%88%97%E8%A1%A8">产品列表</h3>
+
+<h4 class="mume-header" id="%E5%88%97%E8%A1%A8%E5%AD%97%E6%AE%B5%E8%AF%B4%E6%98%8E">列表字段说明</h4>
+
+<ul>
+<li>基本信息：
+<ul>
+<li>ASIN, SKU</li>
+<li>产品缩略图</li>
+<li>产品名称：固定字数，超长时截取</li>
+<li>建立日期</li>
+<li>产品条件：New, Used</li>
+</ul>
+</li>
+<li>产品状态/库存：
+<ul>
+<li>销售状态：标签方式显示</li>
+<li>库存数量：（排序项）</li>
+</ul>
+</li>
+<li>成本：</li>
+<li>运费：</li>
+<li>售价+运费：（利润计算）</li>
+<li>最低价格+运费
+<ul>
+<li>利润计算器</li>
+<li>匹配价格</li>
+</ul>
+</li>
+<li>黄金购物车价格+运费</li>
+<li>最小价格：（利润计算）</li>
+<li>最大价格：（利润计算）</li>
+<li>调价设置：
+<ul>
+<li>调价规则</li>
+<li>定时任务</li>
+<li>开启/停止开关</li>
+</ul>
+</li>
+<li>所有销量（30天内）</li>
+<li>您的销量（30天内）</li>
+<li>群组</li>
+<li>竞争分析
+<ul>
+<li>竞争者数量</li>
+<li>竞争者详情</li>
+</ul>
+</li>
+<li>标签(待定)</li>
+</ul>
+<h4 class="mume-header" id="%E6%8E%92%E5%BA%8F%E5%AD%97%E6%AE%B5">排序字段</h4>
+
+<ul>
+<li>库存数量</li>
+<li>成本</li>
+<li>售价+运费</li>
+<li>销量</li>
+</ul>
+<h4 class="mume-header" id="%E8%BF%90%E8%B4%B9">运费</h4>
+
+<p>如同步到运费数据，显示实际数据。<br>
+新产品可能同步不到运费，因此在这种情况下，需要用户手动输入运费，或手动同步数据，或批量预设运费。</p>
+<h4 class="mume-header" id="%E5%94%AE%E4%BB%B7%E8%BF%90%E8%B4%B9">售价+运费</h4>
+
+<p>当总价格在以下两种情形下，显示方式有所不同<br>
+(1) 总价格=最小价格时，显示最小价格标识。<br>
+(2) 总价格=最大价格时，显示最大价格标识。</p>
+<blockquote>
+<p>说明：<br>
+当更改价格后，应标记价格处于更改状态，在亚马逊平台未发布成功时，不应再次更改售价。<br>
+<mark>历史价格暂时不做。</mark></p>
+</blockquote>
+<h4 class="mume-header" id="%E6%9C%80%E4%BD%8E%E4%BB%B7%E6%A0%BC%E5%92%8C%E8%B4%AD%E7%89%A9%E8%BD%A6%E4%BB%B7%E6%A0%BC">最低价格和购物车价格</h4>
+
+<p>有以下几种显示情况：<br>
+(1) 无竞争者跟卖时，获取不到最低价格和购物车价格，显示&quot;-&quot;。<br>
+(2) 有竞争者跟卖时，显示获取到的数值，售价和运费分别显示【匹配价格】文字按钮。<br>
+(3) 当您的售价是最低价时，最低价格数字隐藏，显示&quot;✔最低价&quot;。<br>
+(4) 当我占据购物车时，购物车价格数字隐藏，显示&quot;购物车&quot;标识。</p>
+<p><strong>匹配价格操作</strong>：<br>
+最低价格和黄金购物车价格都有匹配价格操作，执行说明：<br>
+最低价格匹配： 将售价+运费的总价格等于最低价格+运费的总价格。<br>
+购物车价格匹配： 将售价+运费的总价格等于购物车价格+运费的总价格。</p>
+<blockquote>
+<p>注意：<br>
+如果匹配后的<mark>总价格低于最小价格</mark>，应将最小价格自动调整到： 总价格-0.01</p>
+</blockquote>
+<h4 class="mume-header" id="%E8%B0%83%E4%BB%B7%E8%AE%BE%E7%BD%AE">调价设置</h4>
+
+<h5 class="mume-header" id="%E6%9C%80%E5%B0%8F%E4%BB%B7%E6%A0%BC%E4%B8%8E%E6%9C%80%E5%A4%A7%E4%BB%B7%E6%A0%BC">最小价格与最大价格</h5>
+
+<p>最小价格和最大价格都包含运费，当用户将两者的数值设定不符合以下要求时，提示用户重新设置。</p>
+<ul>
+<li>最小价格必须&lt;(售价+运费）</li>
+<li>最大价格必须&gt;(售价+运费)</li>
+<li>最大价格与最小价格差&lt;商品价格的2%时提示用户。</li>
+</ul>
+<h5 class="mume-header" id="%E8%B0%83%E4%BB%B7%E8%A7%84%E5%88%99">调价规则</h5>
+
+<p>选择已创建好的规则，如果要取消，点击规则列表顶部的&quot;无&quot;选项。</p>
+<h5 class="mume-header" id="%E5%AE%9A%E6%97%B6%E8%B0%83%E4%BB%B7%E4%BB%BB%E5%8A%A1">定时调价任务</h5>
+
+<p>选择已创建好的定时任务，如果要取消，点击定时列表顶部的&quot;无&quot;选项。</p>
+<h4 class="mume-header" id="%E9%94%80%E9%87%8F">销量</h4>
+
+<ul>
+<li>所有销量</li>
+<li>您的销量</li>
+</ul>
+<h4 class="mume-header" id="%E7%BE%A4%E7%BB%84">群组</h4>
+
+<p>选择已创建好的群组，如果要取消，点击群组列表顶部的&quot;无&quot;选项。</p>
+<h4 class="mume-header" id="%E5%8D%95%E4%B8%AA%E4%BA%A7%E5%93%81%E6%93%8D%E4%BD%9C">单个产品操作</h4>
+
+<p>此栏有两种显示状态：</p>
+<ul>
+<li>一般情况：显示【操作】文字按钮，点击时下拉操作列表，包含以下操作项：
+<ul>
+<li>竞争分析：在新页面打开竞争分析页面。</li>
+<li>选择其它变种： 选择同属一个父产品的其它变种产品，方便对其进行批量操作。</li>
+<li>添加标记：无标记时不显示气泡。添加标记后，当鼠标移至标记上，显示Tips信息。</li>
+</ul>
+</li>
+<li>修改成本、售价、最小价格、最大价格、调价规则、定时设置、群组等产品数据时，需要显示【取消】和【确定】按钮
+<ul>
+<li>取消： 不保存修改数据，显示恢复修改前的状态。</li>
+<li>确定： 向服务器发送保存数据请求，显示保持修改后的状态。</li>
+</ul>
+</li>
+</ul>
+<h3 class="mume-header" id="%E5%88%A9%E6%B6%A6%E8%AE%A1%E7%AE%97%E5%99%A8">利润计算器</h3>
+
+<p>参考BQool设计即可，有以下注意事项：<br>
+(1) 成本、实际运费在任何一处更改，在其它计算器中都会自动应用新的数值。<br>
+(2) 在价格（含售价）、预估利润、预估利率、ROI四个输入框中输入数字结束后，自动计算并更新数值显示。<br>
+(3) FBA发货的商品和FBM发货的商品利润计算时费用不同，需要注意。<br>
+PS：组件参考Monarch-FORMS ELEMENTS</p>
+<p><strong>亚马逊官方有关费用的资料</strong>：</p>
+<ul>
+<li><a href="https://gs.amazon.cn/north-america/pricing.htm">佣金和成交费用表</a></li>
+<li><a href="https://sellercentral.amazon.com/hz/fba/profitabilitycalculator/index?lang=en_US">Amazon官方费用计算</a></li>
+<li><a href="https://gs.amazon.cn/north-america/fba/pricing.htm">FBA收费标准</a></li>
+</ul>
+<p>FBM产品利润计算：<br>
+<img src="imgs/BQool-calculate-FBM.png" alt="alt"></p>
+<p>FBA产品利润计算：<br>
+<img src="imgs/BQool-calculate-FBA.png" alt="alt"></p>
+<h3 class="mume-header" id="%E7%BE%A4%E7%BB%84%E7%AE%A1%E7%90%86">群组管理</h3>
+
+<ul>
+<li>增加群组，在每个群组名称后显示表示群组内有多少产品的数字。</li>
+<li>修改群组名称</li>
+<li>删除群组，删除后相应商品的群组属性移除</li>
+</ul>
+<h3 class="mume-header" id="%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C">批量操作</h3>
+
+<h4 class="mume-header" id="%E5%88%B7%E6%96%B0%E4%BA%A7%E5%93%81%E6%95%B0%E6%8D%AE">刷新产品数据</h4>
+
+<ul>
+<li>同步的产品对象：
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> <code>选择的产品</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox"> <code>群组</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox"> <code>全部</code></li>
+</ul>
+</li>
+<li>同步的数据：
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> 售价</li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> 运费</li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> 库存</li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> 竞争者数量</li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> 拥有黄金购物车的卖家</li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> 销量</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>说明：<br>
+(1) 由于同步产品数据的成本较高，因此<mark>默认采用自动同步的方式，具体方式由技术决定</mark>。<br>
+(2) 同步的数据可根据接口的数量，做成不同的复选项，与接口对应。</p>
+</blockquote>
+<h4 class="mume-header" id="%E8%AE%BE%E7%BD%AE%E8%B0%83%E4%BB%B7%E8%A7%84%E5%88%99">设置调价规则</h4>
+
+<ul>
+<li>
+<p>设置的产品对象：</p>
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> <code>选择的产品</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox"> <code>群组</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox"> <code>所有缺少调价设置的产品</code></li>
+</ul>
+</li>
+<li>
+<p>设置项：</p>
+<ul>
+<li>最小价格
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox"> <code>最低价格</code> 【+/-】【数值/百分比】, 默认值是<code>- 0.00$</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox"> <code>购物车价格</code> 【+/-】【数值/百分比】, 默认值是<code>- 3%</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> <code>您的售价+运费</code>【-】【百分比】, 默认值是<code>- 50%</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox"> <code>成本</code>【+】【百分比】, 默认值是<code>+ 50%</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox"> <code>固定价格</code></li>
+</ul>
+</li>
+<li>最大价格
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> <code>您的售价+运费</code>【+】【百分比】, 默认值是<code>+ 50%</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox"> <code>成本</code>【+】【百分比】</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> <code>固定价格</code></li>
+</ul>
+</li>
+<li>调价规则</li>
+</ul>
+</li>
+</ul>
+<p>其它设计参照BQool</p>
+<p>注意：当最大、最小价格选择固定价格时，应提示：“此设置适用于相同价格的产品，请谨慎！”</p>
+<h4 class="mume-header" id="%E8%AE%BE%E7%BD%AE%E6%88%90%E6%9C%AC%E5%8F%8A%E8%BF%90%E8%B4%B9">设置成本及运费</h4>
+
+<ul>
+<li>
+<p>设置的产品对象：</p>
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> <code>选择的产品</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox"> <code>群组</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox"> <code>全部缺少成本设置的产品</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox"> <code>全部缺少FBM实际运费的产品</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox"> <code>全部未同步到运费的产品</code></li>
+</ul>
+</li>
+<li>
+<p>设置项（开关项）：</p>
+<ul>
+<li>成本
+<ul>
+<li><code>您的售格</code></li>
+<li><code>固定价格</code>： 应提示：“此设置适用于同规格的变种产品，请谨慎！”</li>
+</ul>
+</li>
+<li>FBM实际运费</li>
+<li>预设运费（Shipping Price）: 此处应提示用户，适用于没有从Amazon平台同步到运费的新产品。</li>
+</ul>
+</li>
+</ul>
+<p>参照BQool &quot;设定成本&quot;和&quot;Set Shipping Price&quot;的操作。</p>
+<h4 class="mume-header" id="%E5%90%AF%E5%8A%A8%E6%99%BA%E8%83%BD%E8%B0%83%E4%BB%B7">启动智能调价</h4>
+
+<h4 class="mume-header" id="%E6%9A%82%E5%81%9C%E6%99%BA%E8%83%BD%E8%B0%83%E4%BB%B7">暂停智能调价</h4>
+
+<h4 class="mume-header" id="%E6%82%A8%E7%9A%84%E6%80%BB%E4%BB%B7%E6%A0%BC%E7%AD%89%E4%BA%8E%E6%9C%80%E4%BD%8E%E4%BB%B7%E6%A0%BC">您的总价格等于最低价格</h4>
+
+<h4 class="mume-header" id="%E6%82%A8%E7%9A%84%E6%80%BB%E4%BB%B7%E6%A0%BC%E7%AD%89%E4%BA%8E%E8%B4%AD%E7%89%A9%E8%BD%A6%E4%BB%B7%E6%A0%BC">您的总价格等于购物车价格</h4>
+
+<h4 class="mume-header" id="%E5%A2%9E%E5%8A%A0%E5%88%B0%E7%BE%A4%E7%BB%84">增加到群组</h4>
+
+<h4 class="mume-header" id="%E4%BB%8E%E7%BE%A4%E7%BB%84%E7%A7%BB%E9%99%A4">从群组移除</h4>
+
+<p>以上6项批量操作参见BQool设计。</p>
+<h3 class="mume-header" id="%E4%BA%A7%E5%93%81%E6%90%9C%E7%B4%A2%E4%B8%8E%E7%AD%9B%E9%80%89">产品搜索与筛选</h3>
+
+<h4 class="mume-header" id="%E4%BA%A7%E5%93%81%E6%90%9C%E7%B4%A2">产品搜索</h4>
+
+<p>支持按产品标题关键字/ASIN/SKU 的模糊搜索方式。</p>
+<h4 class="mume-header" id="%E4%BA%A7%E5%93%81%E7%AD%9B%E9%80%89%E9%A1%B9">产品筛选项</h4>
+
+<p>包含以下筛选项：</p>
+<h5 class="mume-header" id="%E5%8D%95%E9%80%89%E9%A1%B9%E4%B8%8B%E6%8B%89%E6%A1%86%E5%BD%A2%E5%BC%8F">单选项（下拉框形式）</h5>
+
+<ul>
+<li>产品状态
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> 全部</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> 在售</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> 缺货</li>
+</ul>
+</li>
+<li>发货方式
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> 全部</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> FBA</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> FBM</li>
+</ul>
+</li>
+<li>调价状态
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> 全部</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> 启用</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> 停用</li>
+</ul>
+</li>
+<li>调价规则
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> 全部</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> 规则1</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> 规则2</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> ……</li>
+</ul>
+</li>
+<li>群组
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> 全部</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> 群组1</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> 群组2</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> ……</li>
+</ul>
+</li>
+<li>您的售价+运费
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> 不限</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> 等于最低价格</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> 等于购物车价格</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> 等于最小价格</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> 等于最大价格</li>
+</ul>
+</li>
+</ul>
+<h5 class="mume-header" id="%E9%AB%98%E7%BA%A7%E9%80%89%E9%A1%B9">高级选项</h5>
+
+<h6 class="mume-header" id="%E5%A4%8D%E9%80%89%E6%A1%86%E5%BD%A2%E5%BC%8F">复选框形式</h6>
+
+<ul>
+<li>
+<p>跟卖状态</p>
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> 您在购物车中</li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> 您不在购物车</li>
+</ul>
+</li>
+<li>
+<p>产品条件</p>
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> 全部</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> New</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> Used-Like New</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> Used-Very Good</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> Used-Good</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> Used-Acceptable</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> Collectible-Like New</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> Collectible-Very Good</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> Collectible-Good</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> Collectible-Acceptable</li>
+<li><input type="checkbox" class="task-list-item-checkbox"> Refurbished</li>
+</ul>
+</li>
+<li>
+<p>黄金购物车拥有者（优先级不高）</p>
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> Amazon</li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> FBA</li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> FBM</li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> 无卖家在购物车</li>
+</ul>
+</li>
+</ul>
+<h6 class="mume-header" id="%E5%A1%AB%E7%A9%BA%E5%BD%A2%E5%BC%8F">填空形式</h6>
+
+<ul>
+<li>创建时间<br>
+起始 - 结束</li>
+<li>销量(过去30天)<br>
+最小 - 最大</li>
+</ul>
+<blockquote>
+<p>说明：</p>
+<ul>
+<li>多个可选项时，如选择“全部”选项时，其它选项取消勾选。</li>
+<li>创建时间的起始和结束都显示日期选择组件。</li>
+<li>销量输入框只能输入整数数字。</li>
+</ul>
+</blockquote>
+<h3 class="mume-header" id="%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81%E5%8F%8A%E6%8F%90%E7%A4%BA%E4%BF%A1%E6%81%AF">数据验证及提示信息</h3>
+
+<p>详细内容参见： 《调价产品管理输入数据验证及提示信息》文档。</p>
+<h4 class="mume-header" id="%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81">输入数据验证</h4>
+
+<p>主要是指用户输入的数据，经验证不符合逻辑和规范时，显示警告信息，提醒用户重新输入，以保证数据安全性和准确性。</p>
+<ul>
+<li>列表中的输入项无法使用通常表单验证的错误提示，在点击“确定后”应弹出Alert窗口，显示警告信息。</li>
+<li>批量操作窗口，在点击“确定后”，在窗口中直接显示验证错误提示。</li>
+</ul>
+<p><mark>输入数据验证不通过，不向后台发送数据处理请求。</mark></p>
+<h4 class="mume-header" id="%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E7%BB%93%E6%9E%9C%E6%8A%A5%E5%91%8A">批量处理结果报告</h4>
+
+<p>量操作窗口在数据验证通过后，服务端进行数据更新，如因其它逻辑导致更新失败，应返回给前台，给用户显示结果报告：</p>
+<ul>
+<li>成功更新数量</li>
+<li>失败更新数量</li>
+<li>可能造成失败的原因列举</li>
+</ul>
+<p>PS: 不用显示失败的产品有哪些，亦不用显示具体的失败原因。</p>
+<h4 class="mume-header" id="%E6%93%8D%E4%BD%9C%E5%BC%82%E5%B8%B8%E6%8F%90%E7%A4%BA">操作异常提示</h4>
+
+<p>操作项： 操作的具体内容及步骤<br>
+异常原因： 产生异常的原因<br>
+提示内容： 异常提示的文字说明</p>
+<h2 class="mume-header" id="%E7%AB%9E%E4%BA%89%E5%88%86%E6%9E%90%E9%A1%B5%E9%9D%A2">竞争分析页面</h2>
+
+<p>显示该产品所有竞争者的情况。显示内容包括：</p>
+<h3 class="mume-header" id="%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E6%A6%82%E8%A7%88">产品信息概览</h3>
+
+<p>详见原型文档。</p>
+<h3 class="mume-header" id="%E7%AB%9E%E4%BA%89%E8%80%85%E5%88%97%E8%A1%A8">竞争者列表</h3>
+
+<ul>
+<li>位置</li>
+<li>竞争者<br>
+默认显示竞争对手的SellerID，点击可跳转至竞争对手页面<br>
+对占据黄金购物车的卖家要显示&quot;黄金购物车&quot;标识 。</li>
+<li>售价+运费</li>
+<li>卖家类型</li>
+<li>商品条件</li>
+<li>商品所在地</li>
+<li>Handling Time</li>
+<li>Expedited Shipping</li>
+<li>Backorder</li>
+<li>店铺评论量</li>
+<li>店铺好评率</li>
+<li>店铺总评级</li>
+</ul>
+<p><strong>排序字段</strong>：</p>
+<ul>
+<li>位置（默认排序项）</li>
+<li>商品条件</li>
+<li>Handling Time</li>
+<li>店铺评论量</li>
+<li>店铺好评率</li>
+<li>店铺总评级</li>
+</ul>
+<blockquote>
+<p>说明：<br>
+除了显示每个竞争者的价格等信息，在列表中还应显示最小价格和最大价格两行记录。<br>
+默认按照总价格从小到大排序，</p>
+</blockquote>
+<p>PS: 排序功能可滞后开发。</p>
+<p><strong>最小与最大价格设置异常的情况</strong>：<br>
+(1) 两个都没有设置，显示在列表最下端。<br>
+(2) 最小价格已设置，最大价格未设置，最小价格正常显示，最大价格显示在列表最下端。<br>
+(3) 最小价格未设置，最大价格未设置，最小价格显示在列表最顶部，Position1的上面，最大价格正常显示。</p>
+
+      </div>
+      <div class="md-sidebar-toc"><ul>
+<li><a href="#%E8%B0%83%E4%BB%B7%E4%BA%A7%E5%93%81%E5%88%97%E8%A1%A8%E9%A1%B5%E9%9D%A2">调价产品列表页面</a>
+<ul>
+<li><a href="#%E4%BA%A7%E5%93%81%E5%88%97%E8%A1%A8">产品列表</a>
+<ul>
+<li><a href="#%E5%88%97%E8%A1%A8%E5%AD%97%E6%AE%B5%E8%AF%B4%E6%98%8E">列表字段说明</a></li>
+<li><a href="#%E6%8E%92%E5%BA%8F%E5%AD%97%E6%AE%B5">排序字段</a></li>
+<li><a href="#%E8%BF%90%E8%B4%B9">运费</a></li>
+<li><a href="#%E5%94%AE%E4%BB%B7%E8%BF%90%E8%B4%B9">售价+运费</a></li>
+<li><a href="#%E6%9C%80%E4%BD%8E%E4%BB%B7%E6%A0%BC%E5%92%8C%E8%B4%AD%E7%89%A9%E8%BD%A6%E4%BB%B7%E6%A0%BC">最低价格和购物车价格</a></li>
+<li><a href="#%E8%B0%83%E4%BB%B7%E8%AE%BE%E7%BD%AE">调价设置</a>
+<ul>
+<li><a href="#%E6%9C%80%E5%B0%8F%E4%BB%B7%E6%A0%BC%E4%B8%8E%E6%9C%80%E5%A4%A7%E4%BB%B7%E6%A0%BC">最小价格与最大价格</a></li>
+<li><a href="#%E8%B0%83%E4%BB%B7%E8%A7%84%E5%88%99">调价规则</a></li>
+<li><a href="#%E5%AE%9A%E6%97%B6%E8%B0%83%E4%BB%B7%E4%BB%BB%E5%8A%A1">定时调价任务</a></li>
+</ul>
+</li>
+<li><a href="#%E9%94%80%E9%87%8F">销量</a></li>
+<li><a href="#%E7%BE%A4%E7%BB%84">群组</a></li>
+<li><a href="#%E5%8D%95%E4%B8%AA%E4%BA%A7%E5%93%81%E6%93%8D%E4%BD%9C">单个产品操作</a></li>
+</ul>
+</li>
+<li><a href="#%E5%88%A9%E6%B6%A6%E8%AE%A1%E7%AE%97%E5%99%A8">利润计算器</a></li>
+<li><a href="#%E7%BE%A4%E7%BB%84%E7%AE%A1%E7%90%86">群组管理</a></li>
+<li><a href="#%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C">批量操作</a>
+<ul>
+<li><a href="#%E5%88%B7%E6%96%B0%E4%BA%A7%E5%93%81%E6%95%B0%E6%8D%AE">刷新产品数据</a></li>
+<li><a href="#%E8%AE%BE%E7%BD%AE%E8%B0%83%E4%BB%B7%E8%A7%84%E5%88%99">设置调价规则</a></li>
+<li><a href="#%E8%AE%BE%E7%BD%AE%E6%88%90%E6%9C%AC%E5%8F%8A%E8%BF%90%E8%B4%B9">设置成本及运费</a></li>
+<li><a href="#%E5%90%AF%E5%8A%A8%E6%99%BA%E8%83%BD%E8%B0%83%E4%BB%B7">启动智能调价</a></li>
+<li><a href="#%E6%9A%82%E5%81%9C%E6%99%BA%E8%83%BD%E8%B0%83%E4%BB%B7">暂停智能调价</a></li>
+<li><a href="#%E6%82%A8%E7%9A%84%E6%80%BB%E4%BB%B7%E6%A0%BC%E7%AD%89%E4%BA%8E%E6%9C%80%E4%BD%8E%E4%BB%B7%E6%A0%BC">您的总价格等于最低价格</a></li>
+<li><a href="#%E6%82%A8%E7%9A%84%E6%80%BB%E4%BB%B7%E6%A0%BC%E7%AD%89%E4%BA%8E%E8%B4%AD%E7%89%A9%E8%BD%A6%E4%BB%B7%E6%A0%BC">您的总价格等于购物车价格</a></li>
+<li><a href="#%E5%A2%9E%E5%8A%A0%E5%88%B0%E7%BE%A4%E7%BB%84">增加到群组</a></li>
+<li><a href="#%E4%BB%8E%E7%BE%A4%E7%BB%84%E7%A7%BB%E9%99%A4">从群组移除</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%A7%E5%93%81%E6%90%9C%E7%B4%A2%E4%B8%8E%E7%AD%9B%E9%80%89">产品搜索与筛选</a>
+<ul>
+<li><a href="#%E4%BA%A7%E5%93%81%E6%90%9C%E7%B4%A2">产品搜索</a></li>
+<li><a href="#%E4%BA%A7%E5%93%81%E7%AD%9B%E9%80%89%E9%A1%B9">产品筛选项</a>
+<ul>
+<li><a href="#%E5%8D%95%E9%80%89%E9%A1%B9%E4%B8%8B%E6%8B%89%E6%A1%86%E5%BD%A2%E5%BC%8F">单选项（下拉框形式）</a></li>
+<li><a href="#%E9%AB%98%E7%BA%A7%E9%80%89%E9%A1%B9">高级选项</a>
+<ul>
+<li><a href="#%E5%A4%8D%E9%80%89%E6%A1%86%E5%BD%A2%E5%BC%8F">复选框形式</a></li>
+<li><a href="#%E5%A1%AB%E7%A9%BA%E5%BD%A2%E5%BC%8F">填空形式</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81%E5%8F%8A%E6%8F%90%E7%A4%BA%E4%BF%A1%E6%81%AF">数据验证及提示信息</a>
+<ul>
+<li><a href="#%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81">输入数据验证</a></li>
+<li><a href="#%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E7%BB%93%E6%9E%9C%E6%8A%A5%E5%91%8A">批量处理结果报告</a></li>
+<li><a href="#%E6%93%8D%E4%BD%9C%E5%BC%82%E5%B8%B8%E6%8F%90%E7%A4%BA">操作异常提示</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E7%AB%9E%E4%BA%89%E5%88%86%E6%9E%90%E9%A1%B5%E9%9D%A2">竞争分析页面</a>
+<ul>
+<li><a href="#%E4%BA%A7%E5%93%81%E4%BF%A1%E6%81%AF%E6%A6%82%E8%A7%88">产品信息概览</a></li>
+<li><a href="#%E7%AB%9E%E4%BA%89%E8%80%85%E5%88%97%E8%A1%A8">竞争者列表</a></li>
+</ul>
+</li>
+</ul>
+</div>
+      <a id="sidebar-toc-btn">≡</a>
+    </body>
+    
+    
+    
+    
+    
+    <script>
+(function bindTaskListEvent() {
+  var taskListItemCheckboxes = document.body.getElementsByClassName('task-list-item-checkbox')
+  for (var i = 0; i < taskListItemCheckboxes.length; i++) {
+    var checkbox = taskListItemCheckboxes[i]
+    var li = checkbox.parentElement
+    if (li.tagName !== 'LI') li = li.parentElement
+    if (li.tagName === 'LI') {
+      li.classList.add('task-list-item')
+    }
+  }
+}())    
+</script>
+    
+<script>
+
+var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
+sidebarTOCBtn.addEventListener('click', function(event) {
+  event.stopPropagation()
+  if (document.body.hasAttribute('html-show-sidebar-toc')) {
+    document.body.removeAttribute('html-show-sidebar-toc')
+  } else {
+    document.body.setAttribute('html-show-sidebar-toc', true)
+  }
+})
+</script>
+      
+  </html>

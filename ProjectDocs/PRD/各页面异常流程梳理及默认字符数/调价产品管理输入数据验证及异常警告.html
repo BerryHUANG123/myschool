@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title>调价产品管理输入数据验证及异常警告</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="frontend\katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+      <style> 
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+ 
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview   ">
+      <h2>异常流程梳理-产品列表页</h2>
+<h2 class="mume-header" id="%E4%BA%A7%E5%93%81%E5%88%97%E8%A1%A8%E9%A1%B5">产品列表页</h2>
+
+<h3 class="mume-header" id="%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81">输入数据验证</h3>
+
+<h4 class="mume-header" id="%E8%BE%93%E5%85%A5%E6%A1%86%E6%A0%BC%E5%BC%8F%E9%94%99%E8%AF%AF">输入框格式错误</h4>
+
+<ul>
+<li>操作项：在输入框填写非数字内容，点击确定</li>
+<li>原因：只能输入数字与小数点</li>
+<li>提示内容：价格填写格式错误，请重新填写</li>
+</ul>
+<h4 class="mume-header" id="%E6%9C%80%E5%B0%8F%E4%BB%B7%E6%A0%BC%E8%AE%BE%E7%BD%AE%E4%B8%BA0">最小价格设置为0</h4>
+
+<ul>
+<li>操作项：最小价格设置为0，点击确定</li>
+<li>原因：禁止将最小价格设为0</li>
+<li>提示内容：禁止将最小价格设为0</li>
+</ul>
+<h4 class="mume-header" id="%E6%9C%80%E5%B0%8F%E4%BB%B7%E6%A0%BC%E4%BD%8E%E4%BA%8E%E6%88%96%E7%AD%89%E4%BA%8E%E8%BF%90%E8%B4%B9">最小价格低于或等于运费</h4>
+
+<ul>
+<li>操作项：设置的最小价格低于或等于运费，点击确定</li>
+<li>原因：填写的最小价格必须高于运费</li>
+<li>提示内容：最小价格必须高于运费</li>
+</ul>
+<h4 class="mume-header" id="%E6%9C%80%E5%B0%8F%E4%BB%B7%E6%A0%BC%E5%A4%A7%E4%BA%8E%E6%82%A8%E7%9A%84%E5%94%AE%E4%BB%B7%E8%BF%90%E8%B4%B9">最小价格大于“您的售价+运费”</h4>
+
+<ul>
+<li>操作项：将最小价格设置到大于“您的售价+运费”，点击确定；</li>
+<li>原因：售价不应低于最小价格</li>
+<li>提示内容：您的价格低于最小价格，请重新设置</li>
+</ul>
+<h4 class="mume-header" id="%E6%9C%80%E5%B0%8F%E4%BB%B7%E6%A0%BC%E9%AB%98%E4%BA%8E%E6%9C%80%E5%A4%A7%E4%BB%B7%E6%A0%BC">最小价格高于最大价格</h4>
+
+<ul>
+<li>操作项：设置最小价格高于最大价格，点击确定</li>
+<li>原因：最小价格无法高于最大价格</li>
+<li>提示内容：最小价格必须低于最大价格</li>
+</ul>
+<h4 class="mume-header" id="%E6%9C%80%E5%A4%A7%E4%BB%B7%E6%A0%BC%E8%AE%BE%E7%BD%AE%E4%B8%BA0">最大价格设置为0</h4>
+
+<ul>
+<li>操作项：最大价格设置为0，点击确定</li>
+<li>原因：禁止将最大价格设为0</li>
+<li>提示内容：禁止将最大价格设为0</li>
+</ul>
+<h4 class="mume-header" id="%E6%9C%80%E5%A4%A7%E4%BB%B7%E6%A0%BC%E4%BD%8E%E4%BA%8E%E8%BF%90%E8%B4%B9">最大价格低于运费</h4>
+
+<ul>
+<li>操作项：设置的最大价格低于或等于运费，点击确定</li>
+<li>原因：填写的最大价格必须高于运费</li>
+<li>提示内容：最大价格必须高于运费</li>
+</ul>
+<h4 class="mume-header" id="%E6%9C%80%E5%A4%A7%E4%BB%B7%E6%A0%BC%E4%BD%8E%E4%BA%8E%E6%82%A8%E7%9A%84%E5%94%AE%E4%BB%B7%E8%BF%90%E8%B4%B9">最大价格低于“您的售价+运费”</h4>
+
+<ul>
+<li>操作项：将最大价格设置到低于“您的售价+运费”，点击确定；或将“您的售价+运费”调整至超出最大价格，点击确定</li>
+<li>原因：售价不应高于最大价格</li>
+<li>提示内容：您的价格高于最大价格，请重新设置</li>
+</ul>
+<h4 class="mume-header" id="%E6%9C%80%E5%A4%A7%E4%BB%B7%E6%A0%BC%E4%B8%8E%E6%9C%80%E5%B0%8F%E4%BB%B7%E6%A0%BC%E5%B7%AE%E5%95%86%E5%93%81%E4%BB%B7%E6%A0%BC%E7%9A%842">最大价格与最小价格差&lt;商品价格的2%</h4>
+
+<ul>
+<li>操作项：设置后最大价格与最小价格差&lt;商品价格的2%</li>
+<li>原因：在极小范围内调价意义不大</li>
+<li>提示内容:最大价格与最小价格过于接近，请重新设置</li>
+</ul>
+<h3 class="mume-header" id="%E5%BC%82%E5%B8%B8%E6%93%8D%E4%BD%9C%E8%AD%A6%E5%91%8A">异常操作警告</h3>
+
+<h4 class="mume-header" id="%E9%80%89%E6%8B%A9%E8%B0%83%E4%BB%B7%E8%A7%84%E5%88%99%E6%9C%AA%E9%80%89%E5%AE%9A%E6%97%B6">选择调价规则，未选定时</h4>
+
+<ul>
+<li>操作项：选择选择调价规则，未选定时，打开开关，点击确定</li>
+<li>原因：调价规则需配合定时一起使用</li>
+<li>提示内容：请选择定时任务后再开启开关</li>
+</ul>
+<h4 class="mume-header" id="%E9%80%89%E6%8B%A9%E8%B0%83%E4%BB%B7%E5%AE%9A%E6%97%B6%E6%9C%AA%E9%80%89%E8%A7%84%E5%88%99">选择调价定时，未选规则</h4>
+
+<ul>
+<li>操作项：选择选择调价定时，未选规则，打开开关，点击确定</li>
+<li>原因：调价规则需配合定时一起使用</li>
+<li>提示内容：请选择调价规则后再开启开关</li>
+</ul>
+<h4 class="mume-header" id="%E6%9C%AA%E8%AE%BE%E5%AE%9A%E5%85%B6%E4%BB%96%E6%9D%A1%E4%BB%B6%E7%9B%B4%E6%8E%A5%E5%BC%80%E5%90%AF%E8%B0%83%E4%BB%B7%E5%BC%80%E5%85%B3">未设定其他条件，直接开启调价开关</h4>
+
+<ul>
+<li>操作项：未设定最大价格、最小价格、规则、定时中任意项，且打开调价开关</li>
+<li>原因：开启调价的前提条件是：最大价格、最小价格、规则、定时全部设置完毕</li>
+<li>提示内容：您必须先设定最大价格、最小价格、调价规则以及定时任务</li>
+</ul>
+<h4 class="mume-header" id="%E5%BD%93%E5%89%8D%E4%BA%A7%E5%93%81%E6%97%A0%E5%85%B6%E4%BB%96%E5%8F%98%E7%A7%8D">当前产品无其他变种</h4>
+
+<ul>
+<li>操作项：选择一件产品，点击操作，选择其他变种</li>
+<li>原因：当前产品无变种时弹出提示</li>
+<li>提示内容：当前产品无其他变种</li>
+</ul>
+<h4 class="mume-header" id="%E7%BE%A4%E7%BB%84%E7%AE%A1%E7%90%86-%E8%BE%93%E5%85%A5%E5%90%8D%E7%A7%B0%E4%B8%BA%E7%A9%BA">群组管理-输入名称为空</h4>
+
+<ul>
+<li>操作项：群组管理，未填写群组名称便点击添加</li>
+<li>原因：不允许创建空名称的群组</li>
+<li>提示内容：请填写群组名称</li>
+</ul>
+<h4 class="mume-header" id="%E7%BC%96%E8%BE%91%E7%BE%A4%E7%BB%84%E5%90%8D%E7%A7%B0%E5%90%8E%E6%9C%AA%E4%BF%9D%E5%AD%98">编辑群组名称后未保存</h4>
+
+<ul>
+<li>操作项：编辑群组名称后未保存，点击右上角X退出</li>
+<li>原因：提醒用户，防止误操作</li>
+<li>提示内容：您还有未保存的群组名称，请问是否退出？   “是”、“否”</li>
+</ul>
+<h4 class="mume-header" id="%E6%B7%BB%E5%8A%A0%E6%A0%87%E8%AE%B0%E4%B8%BA%E7%A9%BA">添加标记为空</h4>
+
+<ul>
+<li>操作项：点击操作-添加标记，未添加任何标记，点击确定</li>
+<li>原因：不允许添加空的标记</li>
+<li>提示内容：请填写标记内容</li>
+</ul>
+<h4 class="mume-header" id="%E6%B7%BB%E5%8A%A0%E6%A0%87%E8%AE%B0%E5%90%8E%E6%9C%AA%E4%BF%9D%E5%AD%98">添加标记后未保存</h4>
+
+<ul>
+<li>操作项：添加标记内容后未点击确定，点击右上角X退出</li>
+<li>原因：提醒用户，防止误操作</li>
+<li>提示内容：您还有未保存的标记，请问是否退出？   “是”、“否”</li>
+</ul>
+<h2 class="mume-header" id="%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C%E7%AA%97%E5%8F%A3">批量操作窗口</h2>
+
+<h3 class="mume-header" id="%E5%88%B7%E6%96%B0%E4%BA%A7%E5%93%81%E6%95%B0%E6%8D%AE">刷新产品数据</h3>
+
+<h4 class="mume-header" id="%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81-1">输入数据验证</h4>
+
+<h5 class="mume-header" id="%E6%9C%AA%E9%80%89%E6%8B%A9%E4%BA%A7%E5%93%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E4%BB%B7">未选择产品进行调价</h5>
+
+<ul>
+<li>操作项：未选择任何产品，或群组中产品数为0，点击确定进行调价</li>
+<li>原因：未选择产品无法调价</li>
+<li>提示内容：您还未选择产品，请重新选择</li>
+</ul>
+<h4 class="mume-header" id="%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E7%BB%93%E6%9E%9C%E6%8A%A5%E5%91%8A">批量处理结果报告</h4>
+
+<ol>
+<li>商品ASIN失效</li>
+<li>此ASIN商品缺货</li>
+<li>新上架商品，需24-48小时才可获取运费信息</li>
+</ol>
+<h4 class="mume-header" id="%E5%BC%82%E5%B8%B8%E6%93%8D%E4%BD%9C%E8%AD%A6%E5%91%8A-1">异常操作警告</h4>
+
+<h5 class="mume-header" id="%E6%9C%AA%E4%BF%9D%E5%AD%98%E7%9B%B4%E6%8E%A5%E9%80%80%E5%87%BA">未保存直接退出</h5>
+
+<ul>
+<li>操作项：用户更改内容后未点击确定，点击右上角X退出</li>
+<li>原因：提醒用户，防止误操作</li>
+<li>提示内容：您还有未保存的设置，请问是否退出？   “是”、“否”</li>
+</ul>
+<h3 class="mume-header" id="%E8%AE%BE%E7%BD%AE%E8%B0%83%E4%BB%B7%E8%A7%84%E5%88%99">设置调价规则</h3>
+
+<h4 class="mume-header" id="%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81-2">输入数据验证</h4>
+
+<h5 class="mume-header" id="%E6%9C%AA%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE">未输入数据</h5>
+
+<ul>
+<li>操作项：打开按钮，且输入框无任何数据，点击确定</li>
+<li>原因：开关打开的选项必须有数据</li>
+<li>提示内容：您还未输入数据，请重新输入</li>
+</ul>
+<h5 class="mume-header" id="%E6%9C%AA%E9%80%89%E6%8B%A9%E4%BA%A7%E5%93%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E4%BB%B7-1">未选择产品进行调价</h5>
+
+<ul>
+<li>操作项：未选择任何产品，或群组中产品数为0，点击确定进行调价</li>
+<li>原因：未选择产品无法调价</li>
+<li>提示内容：您还未选择产品，请重新选择</li>
+</ul>
+<h5 class="mume-header" id="%E6%9C%80%E5%B0%8F%E4%BB%B7%E6%A0%BC%E9%AB%98%E4%BA%8E%E6%9C%80%E5%A4%A7%E4%BB%B7%E6%A0%BC-1">最小价格高于最大价格</h5>
+
+<ul>
+<li>操作项：设置的最小价格、最大价格时都选择了同一种计算方式，且最小价格高于最大价格</li>
+<li>原因：最小价格不能高于最大价格</li>
+<li>提示内容：最小价格不能高于最大价格</li>
+</ul>
+<h5 class="mume-header" id="%E6%9C%80%E5%B0%8F%E4%BB%B7%E6%A0%BC%E7%AD%89%E4%BA%8E%E6%9C%80%E5%A4%A7%E4%BB%B7%E6%A0%BC">最小价格等于最大价格</h5>
+
+<ul>
+<li>操作项：设置的最小价格、最大价格时都选择了同一种计算方式，且计算后结果相等</li>
+<li>原因：最小价格不能等于最大价格</li>
+<li>提示内容：最小价格不能等于最大价格</li>
+</ul>
+<h5 class="mume-header" id="%E5%9B%BA%E5%AE%9A%E4%BB%B7%E6%A0%BC%E8%AE%BE%E7%BD%AE%E4%B8%BA0">固定价格设置为0</h5>
+
+<ul>
+<li>操作项：最小价格或最大价格中任意一项选择固定价格，并设置为0</li>
+<li>原因：最小最大价格都不能为0</li>
+<li>提示内容：无法将最小最大价格设置为0</li>
+</ul>
+<h4 class="mume-header" id="%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E7%BB%93%E6%9E%9C%E6%8A%A5%E5%91%8A-1">批量处理结果报告</h4>
+
+<ol>
+<li>最小价格高于或等于最大价格</li>
+<li>最小价格与最大价格过于接近</li>
+<li>无法获取您的售价+运费</li>
+<li>无法获取成本</li>
+<li>当前ASIN无黄金购物车</li>
+</ol>
+<h4 class="mume-header" id="%E5%BC%82%E5%B8%B8%E6%93%8D%E4%BD%9C%E8%AD%A6%E5%91%8A-2">异常操作警告</h4>
+
+<h5 class="mume-header" id="%E6%9C%AA%E4%BF%9D%E5%AD%98%E7%9B%B4%E6%8E%A5%E9%80%80%E5%87%BA-1">未保存直接退出</h5>
+
+<ul>
+<li>操作项：用户更改内容后未点击确定，点击右上角X退出</li>
+<li>原因：提醒用户，防止误操作</li>
+<li>提示内容：您还有未保存的设置，请问是否退出？   “是”、“否”</li>
+</ul>
+<h3 class="mume-header" id="%E8%AE%BE%E7%BD%AE%E6%88%90%E6%9C%AC%E5%8F%8A%E8%BF%90%E8%B4%B9">设置成本及运费</h3>
+
+<h4 class="mume-header" id="%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81-3">输入数据验证</h4>
+
+<h5 class="mume-header" id="%E6%9C%AA%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE-1">未输入数据</h5>
+
+<ul>
+<li>操作项：打开按钮，且输入框无任何数据，点击确定</li>
+<li>原因：开关打开的选项必须有数据</li>
+<li>提示内容：您还未输入数据，请重新输入</li>
+</ul>
+<h5 class="mume-header" id="%E6%9C%AA%E9%80%89%E6%8B%A9%E4%BA%A7%E5%93%81%E8%BF%9B%E8%A1%8C%E8%AE%BE%E7%BD%AE">未选择产品进行设置</h5>
+
+<ul>
+<li>操作项：未选择任何产品，或群组中产品数为0，点击确定进行调价</li>
+<li>原因：未选择产品无法调价</li>
+<li>提示内容：您还未选择产品，请重新选择</li>
+</ul>
+<h4 class="mume-header" id="%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E7%BB%93%E6%9E%9C%E6%8A%A5%E5%91%8A-2">批量处理结果报告</h4>
+
+<ol>
+<li>无法获取您的售价+运费</li>
+<li>当前产品中包含FBA发货方式</li>
+<li>当前产品已同步运费，无需设置</li>
+</ol>
+<h4 class="mume-header" id="%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E8%AD%A6%E5%91%8A">异常处理警告</h4>
+
+<h5 class="mume-header" id="%E6%9C%AA%E4%BF%9D%E5%AD%98%E7%9B%B4%E6%8E%A5%E9%80%80%E5%87%BA-2">未保存直接退出</h5>
+
+<ul>
+<li>操作项：用户更改内容后未点击确定，点击右上角X退出</li>
+<li>原因：提醒用户，防止误操作</li>
+<li>提示内容：您还有未保存的设置，请问是否退出？   “是”、“否”</li>
+</ul>
+<h3 class="mume-header" id="%E5%90%AF%E5%8A%A8%E6%99%BA%E8%83%BD%E8%B0%83%E4%BB%B7">启动智能调价</h3>
+
+<h4 class="mume-header" id="%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E7%BB%93%E6%9E%9C%E6%8A%A5%E5%91%8A-3">批量处理结果报告</h4>
+
+<ol>
+<li>未设置最大、最小价格</li>
+<li>未设置调价规则与调价定时</li>
+</ol>
+<h3 class="mume-header" id="%E6%82%A8%E7%9A%84%E6%80%BB%E4%BB%B7%E6%A0%BC%E7%AD%89%E4%BA%8E%E8%B4%AD%E7%89%A9%E8%BD%A6%E4%BB%B7%E6%A0%BC">您的总价格等于购物车价格</h3>
+
+<h4 class="mume-header" id="%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E7%BB%93%E6%9E%9C%E6%8A%A5%E5%91%8A-4">批量处理结果报告</h4>
+
+<ol>
+<li>当前ASIN无黄金购物车</li>
+</ol>
+<h3 class="mume-header" id="%E5%A2%9E%E5%8A%A0%E5%88%B0%E7%BE%A4%E7%BB%84">增加到群组</h3>
+
+<h4 class="mume-header" id="%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E8%AD%A6%E5%91%8A-1">异常处理警告</h4>
+
+<h5 class="mume-header" id="%E6%9C%AA%E4%BF%9D%E5%AD%98%E7%9B%B4%E6%8E%A5%E9%80%80%E5%87%BA-3">未保存直接退出</h5>
+
+<ul>
+<li>操作项：用户更改内容后未点击确定，点击右上角X退出</li>
+<li>原因：提醒用户，防止误操作</li>
+<li>提示内容：您还有未保存的设置，请问是否退出？   “是”、“否”</li>
+</ul>
+<h3 class="mume-header" id="%E4%BB%8E%E7%BE%A4%E7%BB%84%E7%A7%BB%E9%99%A4">从群组移除</h3>
+
+<h4 class="mume-header" id="%E7%82%B9%E5%87%BB%E6%97%B6%E5%BC%B9%E5%87%BA%E8%AD%A6%E5%91%8A">点击时弹出警告</h4>
+
+<ul>
+<li>操作项：用户点击从群组移除时</li>
+<li>原因：提醒用户，防止误操作</li>
+<li>提示内容：您确定要移除这个群组？   “是”、“否”</li>
+</ul>
+
+      </div>
+      <div class="md-sidebar-toc"><ul>
+<li><a href="#%E4%BA%A7%E5%93%81%E5%88%97%E8%A1%A8%E9%A1%B5">产品列表页</a>
+<ul>
+<li><a href="#%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81">输入数据验证</a>
+<ul>
+<li><a href="#%E8%BE%93%E5%85%A5%E6%A1%86%E6%A0%BC%E5%BC%8F%E9%94%99%E8%AF%AF">输入框格式错误</a></li>
+<li><a href="#%E6%9C%80%E5%B0%8F%E4%BB%B7%E6%A0%BC%E8%AE%BE%E7%BD%AE%E4%B8%BA0">最小价格设置为0</a></li>
+<li><a href="#%E6%9C%80%E5%B0%8F%E4%BB%B7%E6%A0%BC%E4%BD%8E%E4%BA%8E%E6%88%96%E7%AD%89%E4%BA%8E%E8%BF%90%E8%B4%B9">最小价格低于或等于运费</a></li>
+<li><a href="#%E6%9C%80%E5%B0%8F%E4%BB%B7%E6%A0%BC%E5%A4%A7%E4%BA%8E%E6%82%A8%E7%9A%84%E5%94%AE%E4%BB%B7%E8%BF%90%E8%B4%B9">最小价格大于“您的售价+运费”</a></li>
+<li><a href="#%E6%9C%80%E5%B0%8F%E4%BB%B7%E6%A0%BC%E9%AB%98%E4%BA%8E%E6%9C%80%E5%A4%A7%E4%BB%B7%E6%A0%BC">最小价格高于最大价格</a></li>
+<li><a href="#%E6%9C%80%E5%A4%A7%E4%BB%B7%E6%A0%BC%E8%AE%BE%E7%BD%AE%E4%B8%BA0">最大价格设置为0</a></li>
+<li><a href="#%E6%9C%80%E5%A4%A7%E4%BB%B7%E6%A0%BC%E4%BD%8E%E4%BA%8E%E8%BF%90%E8%B4%B9">最大价格低于运费</a></li>
+<li><a href="#%E6%9C%80%E5%A4%A7%E4%BB%B7%E6%A0%BC%E4%BD%8E%E4%BA%8E%E6%82%A8%E7%9A%84%E5%94%AE%E4%BB%B7%E8%BF%90%E8%B4%B9">最大价格低于“您的售价+运费”</a></li>
+<li><a href="#%E6%9C%80%E5%A4%A7%E4%BB%B7%E6%A0%BC%E4%B8%8E%E6%9C%80%E5%B0%8F%E4%BB%B7%E6%A0%BC%E5%B7%AE%E5%95%86%E5%93%81%E4%BB%B7%E6%A0%BC%E7%9A%842">最大价格与最小价格差&lt;商品价格的2%</a></li>
+</ul>
+</li>
+<li><a href="#%E5%BC%82%E5%B8%B8%E6%93%8D%E4%BD%9C%E8%AD%A6%E5%91%8A">异常操作警告</a>
+<ul>
+<li><a href="#%E9%80%89%E6%8B%A9%E8%B0%83%E4%BB%B7%E8%A7%84%E5%88%99%E6%9C%AA%E9%80%89%E5%AE%9A%E6%97%B6">选择调价规则，未选定时</a></li>
+<li><a href="#%E9%80%89%E6%8B%A9%E8%B0%83%E4%BB%B7%E5%AE%9A%E6%97%B6%E6%9C%AA%E9%80%89%E8%A7%84%E5%88%99">选择调价定时，未选规则</a></li>
+<li><a href="#%E6%9C%AA%E8%AE%BE%E5%AE%9A%E5%85%B6%E4%BB%96%E6%9D%A1%E4%BB%B6%E7%9B%B4%E6%8E%A5%E5%BC%80%E5%90%AF%E8%B0%83%E4%BB%B7%E5%BC%80%E5%85%B3">未设定其他条件，直接开启调价开关</a></li>
+<li><a href="#%E5%BD%93%E5%89%8D%E4%BA%A7%E5%93%81%E6%97%A0%E5%85%B6%E4%BB%96%E5%8F%98%E7%A7%8D">当前产品无其他变种</a></li>
+<li><a href="#%E7%BE%A4%E7%BB%84%E7%AE%A1%E7%90%86-%E8%BE%93%E5%85%A5%E5%90%8D%E7%A7%B0%E4%B8%BA%E7%A9%BA">群组管理-输入名称为空</a></li>
+<li><a href="#%E7%BC%96%E8%BE%91%E7%BE%A4%E7%BB%84%E5%90%8D%E7%A7%B0%E5%90%8E%E6%9C%AA%E4%BF%9D%E5%AD%98">编辑群组名称后未保存</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0%E6%A0%87%E8%AE%B0%E4%B8%BA%E7%A9%BA">添加标记为空</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0%E6%A0%87%E8%AE%B0%E5%90%8E%E6%9C%AA%E4%BF%9D%E5%AD%98">添加标记后未保存</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C%E7%AA%97%E5%8F%A3">批量操作窗口</a>
+<ul>
+<li><a href="#%E5%88%B7%E6%96%B0%E4%BA%A7%E5%93%81%E6%95%B0%E6%8D%AE">刷新产品数据</a>
+<ul>
+<li><a href="#%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81-1">输入数据验证</a>
+<ul>
+<li><a href="#%E6%9C%AA%E9%80%89%E6%8B%A9%E4%BA%A7%E5%93%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E4%BB%B7">未选择产品进行调价</a></li>
+</ul>
+</li>
+<li><a href="#%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E7%BB%93%E6%9E%9C%E6%8A%A5%E5%91%8A">批量处理结果报告</a></li>
+<li><a href="#%E5%BC%82%E5%B8%B8%E6%93%8D%E4%BD%9C%E8%AD%A6%E5%91%8A-1">异常操作警告</a>
+<ul>
+<li><a href="#%E6%9C%AA%E4%BF%9D%E5%AD%98%E7%9B%B4%E6%8E%A5%E9%80%80%E5%87%BA">未保存直接退出</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E8%AE%BE%E7%BD%AE%E8%B0%83%E4%BB%B7%E8%A7%84%E5%88%99">设置调价规则</a>
+<ul>
+<li><a href="#%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81-2">输入数据验证</a>
+<ul>
+<li><a href="#%E6%9C%AA%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE">未输入数据</a></li>
+<li><a href="#%E6%9C%AA%E9%80%89%E6%8B%A9%E4%BA%A7%E5%93%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E4%BB%B7-1">未选择产品进行调价</a></li>
+<li><a href="#%E6%9C%80%E5%B0%8F%E4%BB%B7%E6%A0%BC%E9%AB%98%E4%BA%8E%E6%9C%80%E5%A4%A7%E4%BB%B7%E6%A0%BC-1">最小价格高于最大价格</a></li>
+<li><a href="#%E6%9C%80%E5%B0%8F%E4%BB%B7%E6%A0%BC%E7%AD%89%E4%BA%8E%E6%9C%80%E5%A4%A7%E4%BB%B7%E6%A0%BC">最小价格等于最大价格</a></li>
+<li><a href="#%E5%9B%BA%E5%AE%9A%E4%BB%B7%E6%A0%BC%E8%AE%BE%E7%BD%AE%E4%B8%BA0">固定价格设置为0</a></li>
+</ul>
+</li>
+<li><a href="#%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E7%BB%93%E6%9E%9C%E6%8A%A5%E5%91%8A-1">批量处理结果报告</a></li>
+<li><a href="#%E5%BC%82%E5%B8%B8%E6%93%8D%E4%BD%9C%E8%AD%A6%E5%91%8A-2">异常操作警告</a>
+<ul>
+<li><a href="#%E6%9C%AA%E4%BF%9D%E5%AD%98%E7%9B%B4%E6%8E%A5%E9%80%80%E5%87%BA-1">未保存直接退出</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E8%AE%BE%E7%BD%AE%E6%88%90%E6%9C%AC%E5%8F%8A%E8%BF%90%E8%B4%B9">设置成本及运费</a>
+<ul>
+<li><a href="#%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81-3">输入数据验证</a>
+<ul>
+<li><a href="#%E6%9C%AA%E8%BE%93%E5%85%A5%E6%95%B0%E6%8D%AE-1">未输入数据</a></li>
+<li><a href="#%E6%9C%AA%E9%80%89%E6%8B%A9%E4%BA%A7%E5%93%81%E8%BF%9B%E8%A1%8C%E8%AE%BE%E7%BD%AE">未选择产品进行设置</a></li>
+</ul>
+</li>
+<li><a href="#%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E7%BB%93%E6%9E%9C%E6%8A%A5%E5%91%8A-2">批量处理结果报告</a></li>
+<li><a href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E8%AD%A6%E5%91%8A">异常处理警告</a>
+<ul>
+<li><a href="#%E6%9C%AA%E4%BF%9D%E5%AD%98%E7%9B%B4%E6%8E%A5%E9%80%80%E5%87%BA-2">未保存直接退出</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%90%AF%E5%8A%A8%E6%99%BA%E8%83%BD%E8%B0%83%E4%BB%B7">启动智能调价</a>
+<ul>
+<li><a href="#%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E7%BB%93%E6%9E%9C%E6%8A%A5%E5%91%8A-3">批量处理结果报告</a></li>
+</ul>
+</li>
+<li><a href="#%E6%82%A8%E7%9A%84%E6%80%BB%E4%BB%B7%E6%A0%BC%E7%AD%89%E4%BA%8E%E8%B4%AD%E7%89%A9%E8%BD%A6%E4%BB%B7%E6%A0%BC">您的总价格等于购物车价格</a>
+<ul>
+<li><a href="#%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E7%BB%93%E6%9E%9C%E6%8A%A5%E5%91%8A-4">批量处理结果报告</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A2%9E%E5%8A%A0%E5%88%B0%E7%BE%A4%E7%BB%84">增加到群组</a>
+<ul>
+<li><a href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E8%AD%A6%E5%91%8A-1">异常处理警告</a>
+<ul>
+<li><a href="#%E6%9C%AA%E4%BF%9D%E5%AD%98%E7%9B%B4%E6%8E%A5%E9%80%80%E5%87%BA-3">未保存直接退出</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E4%BB%8E%E7%BE%A4%E7%BB%84%E7%A7%BB%E9%99%A4">从群组移除</a>
+<ul>
+<li><a href="#%E7%82%B9%E5%87%BB%E6%97%B6%E5%BC%B9%E5%87%BA%E8%AD%A6%E5%91%8A">点击时弹出警告</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+      <a id="sidebar-toc-btn">≡</a>
+    </body>
+    
+    
+    
+    
+    
+    <script>
+(function bindTaskListEvent() {
+  var taskListItemCheckboxes = document.body.getElementsByClassName('task-list-item-checkbox')
+  for (var i = 0; i < taskListItemCheckboxes.length; i++) {
+    var checkbox = taskListItemCheckboxes[i]
+    var li = checkbox.parentElement
+    if (li.tagName !== 'LI') li = li.parentElement
+    if (li.tagName === 'LI') {
+      li.classList.add('task-list-item')
+    }
+  }
+}())    
+</script>
+    
+<script>
+
+var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
+sidebarTOCBtn.addEventListener('click', function(event) {
+  event.stopPropagation()
+  if (document.body.hasAttribute('html-show-sidebar-toc')) {
+    document.body.removeAttribute('html-show-sidebar-toc')
+  } else {
+    document.body.setAttribute('html-show-sidebar-toc', true)
+  }
+})
+</script>
+      
+  </html>

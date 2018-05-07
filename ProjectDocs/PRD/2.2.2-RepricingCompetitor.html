@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title>2.2.2-RepricingCompetitor</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="frontend\katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+      <style> 
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+ 
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview   ">
+      <h2>BuyBox智能调价竞品参考</h2>
+<h2 class="mume-header" id="amazon-automate-pricing">Amazon-Automate Pricing</h2>
+
+<p>亚马逊官方的自动调价工具，</p>
+<p><img src="imgs/Amazon-Automate-Pricing.png" alt="alt"></p>
+<h2 class="mume-header" id="bqool-%E6%99%BA%E8%83%BD%E8%B0%83%E4%BB%B7httpwwwbqoolcnproductsrepricing-central"><a href="http://www.bqool.cn/products/repricing-central/">BQool-智能调价</a></h2>
+
+<h3 class="mume-header" id="bqool%E4%BA%A7%E5%93%81%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97">BQool产品功能模块</h3>
+
+<ol>
+<li>情报总览<br>
+分两部分，主面板和智能调价</li>
+<li>商品管理
+<ul>
+<li>商品列表
+<ul>
+<li>列表栏目设定</li>
+<li>排序项</li>
+</ul>
+</li>
+<li>筛选器</li>
+<li>商品群组</li>
+<li>搜索及过滤选项</li>
+<li>利润计算器</li>
+<li>商品操作
+<ul>
+<li>竞争分析</li>
+<li>历史价格</li>
+<li>最小价格等于最低价格</li>
+<li>最小价格等于购物车价格</li>
+<li>您的价格等于最低价格</li>
+<li>您的价格等于购物车价格</li>
+<li>增加到群组</li>
+</ul>
+</li>
+<li>多笔操作（应用于选中的商品、群组中的商品）
+<ul>
+<li>设定最小/最大价格 &amp; 规则</li>
+<li>设定成本</li>
+<li>Set Shipping Price</li>
+<li>暂停智能调价</li>
+<li>启动智能调价</li>
+<li>最小价格等于最低价格</li>
+<li>最小价格等于购物车价格</li>
+<li>您的价格等于最低价格</li>
+<li>您的价格等于购物车价格</li>
+<li>增加到群组</li>
+<li>移除群组</li>
+<li>刷新运费</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>调价规则</li>
+<li>调价记录</li>
+<li>企业报表</li>
+<li>数据接口（批量上传）</li>
+</ol>
+<p><strong>产品卖点</strong>：</p>
+<ul>
+<li>利润计算</li>
+<li>分组竞价</li>
+<li>即时商品信息</li>
+<li>情报总览</li>
+<li>历史调价记录</li>
+<li>定制化调价规则</li>
+</ul>
+<h3 class="mume-header" id="bqool%E8%B0%83%E4%BB%B7%E8%A7%84%E5%88%99">BQool调价规则</h3>
+
+<p>规则分为两部分：黄金购物车设定和智能调价设定</p>
+<h4 class="mume-header" id="%E6%99%BA%E8%83%BD%E8%B0%83%E4%BB%B7%E8%AE%BE%E5%AE%9A">智能调价设定</h4>
+
+<ul>
+<li>
+<p>竞争：</p>
+<ul>
+<li><code>最低价格</code></li>
+<li><code>黄金购物车价格</code></li>
+</ul>
+</li>
+<li>
+<p>选择竞争对手：</p>
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> <code>亚马逊</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> <code>FBA</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> <code>FBM</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> <code>非特色卖家FBA</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> <code>非特色卖家FBM</code></li>
+</ul>
+</li>
+</ul>
+<h4 class="mume-header" id="%E9%BB%84%E9%87%91%E8%B4%AD%E7%89%A9%E8%BD%A6%E8%AE%BE%E5%AE%9A">黄金购物车设定</h4>
+
+<p>当卖家占据BuyBox时，此设定才起效。</p>
+<ul>
+<li>
+<p>黄金购物车设定, 有以下5种策略：</p>
+<ul>
+<li><code>降低或提高黄金购物车价格</code>
+<ul>
+<li>与最低价竞争时降低【数值或比率】， 默认值: 0.01$，<mark>当竞争对手价格低于卖家商品价格时，调整价格比有BuyBox资格的最低价竞争者少$0.01，</mark></li>
+<li>提高价格时降低 【数值或比率】， 默认值: 3%， <mark>当有BuyBox资格的竞争对手提高价格，也会提升卖家商品的价格，比最低价的竞争者仍降低数值或比率</mark></li>
+</ul>
+</li>
+<li><code>提高我的黄金购物车价格最大化利润</code>
+<ul>
+<li>调整 【数值或比率】， 默认值: 3%</li>
+</ul>
+</li>
+<li><code>降低我的黄金购物车价格以保持竞争力</code>
+<ul>
+<li>调整 【数值或比率】， 默认值: 0.01$</li>
+</ul>
+</li>
+<li><code>不要改变我的黄金购物车价格</code></li>
+<li><code>暂停黄金购物车设定</code></li>
+</ul>
+</li>
+<li>
+<p>调整后价格高于最大价格时的设定：<br>
+仅当黄金购物车设定为前两项策略时，此选项才出现。</p>
+<ul>
+<li><code>不智能调价</code></li>
+<li><code>使用最大价格</code></li>
+</ul>
+</li>
+<li>
+<p>选择竞争对手：</p>
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> <code>亚马逊</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> <code>FBA</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> <code>FBM</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox"> <code>非特色卖家FBA</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox"> <code>非特色卖家FBM</code></li>
+</ul>
+</li>
+<li>
+<p>安全调价设定：</p>
+<ul>
+<li>当调价后的价格，低于你原价的 【比率】</li>
+<li>限制每次调价金额 = 你的价格 -【比率】</li>
+</ul>
+</li>
+</ul>
+<h4 class="mume-header" id="%E9%A2%84%E7%BD%AE%E8%A7%84%E5%88%99">预置规则</h4>
+
+<h5 class="mume-header" id="stay-competitive">Stay Competitive</h5>
+
+<blockquote>
+<p>描述：<br>
+We start by competing against the lowest priced competitor above your Min Price. This puts you in a good position to win the Buy Box. If competitors are equal to or below your Min Price we will look for the next eligible competitor above your Min Price. When you're in the Buy Box, the Buy Box Settings will keep your price competitive to increase Buy Box ownership. Both the Buy Box Settings and Repricing Settings will be able to lower and raise your price to maintain a competitive advantage relative to your competitors.</p>
+</blockquote>
+<p>差异点：</p>
+<ul>
+<li>
+<p>智能调价设置</p>
+<ul>
+<li>策略选择：最低价格</li>
+<li>竞争对手类型：所有</li>
+<li>高于最小价格时： 对手价格 <code>- 0.01$</code></li>
+<li>无竞争者在最小与最大价格之间： 最小价格 <code>+ 0.01$</code></li>
+</ul>
+</li>
+<li>
+<p>黄金购物車设定</p>
+<ul>
+<li>调价策略： 降低或提高黄金购物车价格</li>
+<li>当调整后的价格高于最大价格: 不智能调价</li>
+</ul>
+</li>
+<li>
+<p>排除设置<br>
+无</p>
+</li>
+</ul>
+<h5 class="mume-header" id="maximize-profit">Maximize Profit</h5>
+
+<blockquote>
+<p>描述：<br>
+A rule that focuses on protecting your margins and maximizing your profits. We will lower your price to put you in a position to get the Buy Box. Once you're in the Buy Box, the Buy Box Settings will raise your price to maximize the profits you earn during your Buy Box duration. This rule will exclude the Backordered offers to avoid intentional price drop. Using the Repricing Settings will be able to lower and raise your price to keep you competitive while staying within the range of your profit margins.</p>
+</blockquote>
+<p>差异点：</p>
+<ul>
+<li>
+<p>智能调价设置</p>
+<ul>
+<li>策略选择：最低价格</li>
+<li>竞争对手类型：排除非特色卖家-FBM</li>
+<li>高于最小价格时： 对手价格 <code>- 0.01$</code></li>
+<li>无竞争者在最小与最大价格之间： 不智能调价</li>
+</ul>
+</li>
+<li>
+<p>黄金购物車设定</p>
+<ul>
+<li>调价策略： 提高我的黄金购物车价格最大化利润</li>
+<li>当调整后的价格高于最大价格: 使用最大价格</li>
+</ul>
+</li>
+<li>
+<p>排除设置</p>
+<ul>
+<li>排除 Backordered 的卖家(排除延期交货以避免故意降低)</li>
+</ul>
+</li>
+</ul>
+<h5 class="mume-header" id="compete-for-the-buy-box-stay-competitive">Compete for the Buy Box - Stay Competitive</h5>
+
+<blockquote>
+<p>描述：<br>
+This rule uses the current Buy Box price to adjust your position. Repricing Settings will lower or raise your price to 3% lower than Buy Box price. If Buy Box price is equal to your Min Price, you will go to Min price. When you are in the Buy Box, Buy Box Settings will keep your price competitive to increase Buy Box ownership. Buy Box Settings will be able to lower and raise your price to maintain a competitive advantage relative to your competitors.</p>
+</blockquote>
+<p>差异点：</p>
+<ul>
+<li>
+<p>智能调价设置</p>
+<ul>
+<li>策略选择：	黄金购物车价格</li>
+<li>竞争对手类型：所有</li>
+<li>高于最小价格时： 	黄金购物车价格 <code>- 3%</code></li>
+<li>购物车卖家低于最小价格或高于最大价格: 不智能调价</li>
+</ul>
+</li>
+<li>
+<p>黄金购物車设定</p>
+<ul>
+<li>调价策略： 降低或提高黄金购物车价格</li>
+<li>当调整后的价格高于最大价格: 不智能调价</li>
+</ul>
+</li>
+<li>
+<p>排除设置<br>
+无</p>
+</li>
+</ul>
+<h5 class="mume-header" id="compete-for-the-buy-box-maximize-profit">Compete for the Buy Box - Maximize Profit</h5>
+
+<blockquote>
+<p>描述：<br>
+This rule uses the current Buy Box price to adjust your position. Once you are in the Buy Box, the Buy Box Settings will raise your price to maximize profit by looking for the competitor priced above you. Only when a competitor has taken the Buy Box away, the Repricing Settings will be able to lower and raise your price according to the new Buy Box price.</p>
+</blockquote>
+<p>差异点：</p>
+<ul>
+<li>
+<p>智能调价设置</p>
+<ul>
+<li>策略选择：黄金购物车价格</li>
+<li>竞争对手类型：排除非特色卖家-FBA, 非特色卖家-FBM</li>
+<li>高于最小价格时： 黄金购物车价格 <code>- 0.01$</code></li>
+<li>无竞争者在最小与最大价格之间： 不智能调价</li>
+</ul>
+</li>
+<li>
+<p>黄金购物車设定</p>
+<ul>
+<li>调价策略： 提高我的黄金购物车价格最大化利润</li>
+<li>当调整后的价格高于最大价格: 使用最大价格</li>
+</ul>
+</li>
+<li>
+<p>排除设置</p>
+<ul>
+<li>排除 Backordered 的卖家(排除延期交货以避免故意降低)</li>
+</ul>
+</li>
+</ul>
+<h3 class="mume-header" id="%E5%85%B6%E5%AE%83">其它</h3>
+
+<ul>
+<li>BQool购物车标靶策略</li>
+<li>BQool定时调价策略</li>
+</ul>
+<h2 class="mume-header" id="mean-repricerhttpmeanrepricercom"><a href="http://meanrepricer.com">mean repricer</a></h2>
+
+<h3 class="mume-header" id="mean-repricer%E8%B0%83%E4%BB%B7%E8%A7%84%E5%88%99">mean repricer调价规则</h3>
+
+<h4 class="mume-header" id="step1-%E6%B7%BB%E5%8A%A0%E6%96%B0%E7%9A%84%E8%A7%84%E5%88%99">Step1: 添加新的规则</h4>
+
+<p><a href="http://meanrepricer.com/Home/Documentation#conf_4">官方文档</a></p>
+<p>规则包括4个字段， &quot;My Item Condition&quot;, &quot;Competitor Item Condition&quot;, &quot;Action&quot;, &quot;Value&quot;:</p>
+<ul>
+<li>
+<p>选择&quot;My Item Condition&quot;与&quot;Competitor Item Condition&quot;，有三个选项：</p>
+<ul>
+<li><code>New</code>（全新）: 当&quot;My Item Condition&quot;是<code>New</code>时，&quot;Competitor Item Condition&quot;不可选，只能为<code>New</code></li>
+<li><code>Refurbished</code>（翻新）</li>
+<li><code>Used</code>（二手）</li>
+</ul>
+</li>
+<li>
+<p>Action， 有三种操作：</p>
+<ul>
+<li><code>Ignore This Seller</code>： 激活时将忽略此卖家。</li>
+<li><code>Price Difference</code>： 以数值方式设置与竞争价格的差异。</li>
+<li><code>Price Difference In Percentage</code>： 以百分比方式设置与竞争价格的差异。</li>
+</ul>
+</li>
+<li>
+<p>Value, 输入数值或比率, &quot;Action&quot;选为<code>Ignore This Seller</code>时，不显示&quot;Value&quot;字段。</p>
+</li>
+</ul>
+<h4 class="mume-header" id="step2-%E8%AE%BE%E7%BD%AE%E6%9D%A1%E4%BB%B6">Step2: 设置条件</h4>
+
+<p>条件包括3个字段，&quot;Field&quot;, &quot;Condition&quot;, &quot;Value&quot;</p>
+<ol>
+<li>&quot;Field&quot;，有以下选项：
+<ul>
+<li><code>Price</code></li>
+<li><code>Average Feedaback</code></li>
+<li><code>Total Feedack</code></li>
+<li><code>FBA Merchants</code></li>
+<li><code>Super Saver Delivery</code></li>
+<li><code>Quantity</code></li>
+<li><code>Domestic</code></li>
+</ul>
+</li>
+<li>Condition，有以下选项：
+<ul>
+<li>Greater:</li>
+<li>Less:</li>
+<li>Equal</li>
+<li>Not Equal</li>
+</ul>
+</li>
+<li>Value</li>
+</ol>
+<p>所有条件满足时，才按Step1中设定的&quot;Action&quot;执行调价。<br>
+当多个条件同时存在，A规则包含B规则的所有条件时，B规则被忽略，除非B规则在A规则之上。<br>
+<mark>不能表达多个条件之间或的关系。</mark></p>
+<h2 class="mume-header" id="%E8%B6%85%E7%BA%A7%E5%BA%97%E9%95%BF-%E6%99%BA%E8%83%BD%E8%B0%83%E4%BB%B7httpspricesupersellercn"><a href="https://price.superseller.cn">超级店长-智能调价</a></h2>
+
+<h3 class="mume-header" id="%E8%B0%83%E4%BB%B7%E7%9B%B8%E5%85%B3%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97">调价相关功能模块</h3>
+
+<ol>
+<li>调价产品列表；</li>
+<li>调价规则管理；</li>
+<li>产品数据；</li>
+<li>操作记录：
+<ul>
+<li>调价记录</li>
+<li>产品操作记录</li>
+</ul>
+</li>
+</ol>
+<h3 class="mume-header" id="%E8%B0%83%E4%BB%B7%E8%A7%84%E5%88%99">调价规则</h3>
+
+<h4 class="mume-header" id="%E6%99%BA%E8%83%BD%E8%B0%83%E4%BB%B7">智能调价</h4>
+
+<p>未占据黄金购物车时生效</p>
+<h5 class="mume-header" id="step1-%E9%80%89%E6%8B%A9%E7%AB%9E%E4%BA%89%E7%B1%BB%E5%9E%8B">Step1: 选择竞争类型</h5>
+
+<ul>
+<li><code>最低价竞争者</code>， 选择此种竞争类型时，还需要选择竞争对手类型:
+<ul>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> <code>亚马逊</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> <code>FBA</code></li>
+<li><input type="checkbox" class="task-list-item-checkbox" checked> <code>FBM</code></li>
+</ul>
+</li>
+<li><code>黄金购物车拥有者</code></li>
+</ul>
+<h5 class="mume-header" id="step2-%E9%80%89%E6%8B%A9%E7%AB%9E%E4%BA%89%E6%9D%A1%E4%BB%B6">Step2: 选择竞争条件</h5>
+
+<ol>
+<li>当竞争对手价格≤最小价格时：</li>
+</ol>
+<ul>
+<li><code>不进行调价</code></li>
+<li><code>使用最小价格</code>，默认值</li>
+<li><code>使用最大价格</code></li>
+<li><code>自动竞争</code> ，选中时会自动套用第二个条件</li>
+</ul>
+<ol start="2">
+<li>当最小价格&lt;竞争对手价格≤最大价格时：</li>
+</ol>
+<ul>
+<li><code>不进行调价</code></li>
+<li><code>使用最小价格</code></li>
+<li><code>使用最大价格</code></li>
+<li><code>竞争对手价格</code>【+或-】【数值或比率】，默认值</li>
+</ul>
+<ol start="3">
+<li>当最大价格&lt;竞争对手价格时:</li>
+</ol>
+<ul>
+<li><code>不进行调价</code></li>
+<li><code>使用最小价格</code></li>
+<li><code>使用最大价格</code> ，默认值</li>
+<li><code>竞争对手价格</code>【+或-】【数值或比率】</li>
+</ul>
+<p>PS: 此处的竞争对手应指比价者。</p>
+<h5 class="mume-header" id="step3-%E6%97%A0%E7%AB%9E%E4%BA%89%E6%97%B6%E7%9A%84%E8%AE%BE%E7%BD%AE">Step3: 无竞争时的设置</h5>
+
+<ul>
+<li><code>不进行调价</code>， 默认值</li>
+<li><code>使用最小价格</code></li>
+<li><code>使用最大价格</code></li>
+</ul>
+<h4 class="mume-header" id="%E9%BB%84%E9%87%91%E8%B4%AD%E7%89%A9%E8%BD%A6%E8%AE%BE%E5%AE%9A-1">黄金购物车设定</h4>
+
+<p>占据黄金购物车时生效</p>
+<ul>
+<li><code>提高我的黄金购物车价格</code>， 比较对象有：
+<ul>
+<li>自己</li>
+<li>最有力的竞争者</li>
+<li>超过最大价格的有力竞争者， 比较对象有：</li>
+</ul>
+</li>
+<li><code>降低我的黄金购物车价格</code>
+<ul>
+<li>自己</li>
+<li>最低价竞争者</li>
+<li>最有力的竞争者</li>
+</ul>
+</li>
+<li><code>保持我的黄金购物车价格</code></li>
+<li><code>暂停黄金购物车设定</code></li>
+</ul>
+<p>提高或降低的数量是数值或百分比。</p>
+<h4 class="mume-header" id="%E8%BF%9B%E9%98%B6%E8%AE%BE%E5%AE%9A">进阶设定</h4>
+
+<p>基本同BQool</p>
+<h4 class="mume-header" id="%E6%9C%80%E5%B0%8F%E4%BB%B7%E6%A0%BC%E4%BF%9D%E8%AF%81">最小价格保证</h4>
+
+<p>基本同BQool</p>
+<h4 class="mume-header" id="%E5%81%8F%E5%A5%BD%E8%AE%BE%E5%AE%9A">偏好设定</h4>
+
+<p>基本同BQool</p>
+<h2 class="mume-header" id="%E5%85%B6%E5%AE%83%E8%B0%83%E4%BB%B7%E4%BA%A7%E5%93%81">其它调价产品</h2>
+
+<ul>
+<li><a href="https://app.repricerexpress.com">RepricerExpress</a></li>
+<li><a href="http://admin.amzcaptain.com">AMZCaptain</a></li>
+<li><a href="https://www.kuniao.com">酷鸟</a></li>
+</ul>
+<p>接口能够提供的数据：<br>
+offer变动时间<br>
+匹配当前ASIN的offer数量<br>
+各种组合的最低价<br>
+建议刊登价格<br>
+建议加运费后的最低价<br>
+有能力获取buybox的offers（只开放了成色和是否FBA发货两个属性）<br>
+评定Boxbox时间</p>
+<p><a href="http://docs.developer.amazonservices.com/en_US/products/Products_GetLowestOfferListingsForASIN.html">http://docs.developer.amazonservices.com/en_US/products/Products_GetLowestOfferListingsForASIN.html</a></p>
+
+      </div>
+      <div class="md-sidebar-toc"><ul>
+<li><a href="#amazon-automate-pricing">Amazon-Automate Pricing</a></li>
+<li><a href="#bqool-%E6%99%BA%E8%83%BD%E8%B0%83%E4%BB%B7httpwwwbqoolcnproductsrepricing-central">BQool-智能调价</a>
+<ul>
+<li><a href="#bqool%E4%BA%A7%E5%93%81%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97">BQool产品功能模块</a></li>
+<li><a href="#bqool%E8%B0%83%E4%BB%B7%E8%A7%84%E5%88%99">BQool调价规则</a>
+<ul>
+<li><a href="#%E6%99%BA%E8%83%BD%E8%B0%83%E4%BB%B7%E8%AE%BE%E5%AE%9A">智能调价设定</a></li>
+<li><a href="#%E9%BB%84%E9%87%91%E8%B4%AD%E7%89%A9%E8%BD%A6%E8%AE%BE%E5%AE%9A">黄金购物车设定</a></li>
+<li><a href="#%E9%A2%84%E7%BD%AE%E8%A7%84%E5%88%99">预置规则</a>
+<ul>
+<li><a href="#stay-competitive">Stay Competitive</a></li>
+<li><a href="#maximize-profit">Maximize Profit</a></li>
+<li><a href="#compete-for-the-buy-box-stay-competitive">Compete for the Buy Box - Stay Competitive</a></li>
+<li><a href="#compete-for-the-buy-box-maximize-profit">Compete for the Buy Box - Maximize Profit</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%85%B6%E5%AE%83">其它</a></li>
+</ul>
+</li>
+<li><a href="#mean-repricerhttpmeanrepricercom">mean repricer</a>
+<ul>
+<li><a href="#mean-repricer%E8%B0%83%E4%BB%B7%E8%A7%84%E5%88%99">mean repricer调价规则</a>
+<ul>
+<li><a href="#step1-%E6%B7%BB%E5%8A%A0%E6%96%B0%E7%9A%84%E8%A7%84%E5%88%99">Step1: 添加新的规则</a></li>
+<li><a href="#step2-%E8%AE%BE%E7%BD%AE%E6%9D%A1%E4%BB%B6">Step2: 设置条件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E8%B6%85%E7%BA%A7%E5%BA%97%E9%95%BF-%E6%99%BA%E8%83%BD%E8%B0%83%E4%BB%B7httpspricesupersellercn">超级店长-智能调价</a>
+<ul>
+<li><a href="#%E8%B0%83%E4%BB%B7%E7%9B%B8%E5%85%B3%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97">调价相关功能模块</a></li>
+<li><a href="#%E8%B0%83%E4%BB%B7%E8%A7%84%E5%88%99">调价规则</a>
+<ul>
+<li><a href="#%E6%99%BA%E8%83%BD%E8%B0%83%E4%BB%B7">智能调价</a>
+<ul>
+<li><a href="#step1-%E9%80%89%E6%8B%A9%E7%AB%9E%E4%BA%89%E7%B1%BB%E5%9E%8B">Step1: 选择竞争类型</a></li>
+<li><a href="#step2-%E9%80%89%E6%8B%A9%E7%AB%9E%E4%BA%89%E6%9D%A1%E4%BB%B6">Step2: 选择竞争条件</a></li>
+<li><a href="#step3-%E6%97%A0%E7%AB%9E%E4%BA%89%E6%97%B6%E7%9A%84%E8%AE%BE%E7%BD%AE">Step3: 无竞争时的设置</a></li>
+</ul>
+</li>
+<li><a href="#%E9%BB%84%E9%87%91%E8%B4%AD%E7%89%A9%E8%BD%A6%E8%AE%BE%E5%AE%9A-1">黄金购物车设定</a></li>
+<li><a href="#%E8%BF%9B%E9%98%B6%E8%AE%BE%E5%AE%9A">进阶设定</a></li>
+<li><a href="#%E6%9C%80%E5%B0%8F%E4%BB%B7%E6%A0%BC%E4%BF%9D%E8%AF%81">最小价格保证</a></li>
+<li><a href="#%E5%81%8F%E5%A5%BD%E8%AE%BE%E5%AE%9A">偏好设定</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%85%B6%E5%AE%83%E8%B0%83%E4%BB%B7%E4%BA%A7%E5%93%81">其它调价产品</a></li>
+</ul>
+</div>
+      <a id="sidebar-toc-btn">≡</a>
+    </body>
+    
+    
+    
+    
+    
+    <script>
+(function bindTaskListEvent() {
+  var taskListItemCheckboxes = document.body.getElementsByClassName('task-list-item-checkbox')
+  for (var i = 0; i < taskListItemCheckboxes.length; i++) {
+    var checkbox = taskListItemCheckboxes[i]
+    var li = checkbox.parentElement
+    if (li.tagName !== 'LI') li = li.parentElement
+    if (li.tagName === 'LI') {
+      li.classList.add('task-list-item')
+    }
+  }
+}())    
+</script>
+    
+<script>
+
+var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
+sidebarTOCBtn.addEventListener('click', function(event) {
+  event.stopPropagation()
+  if (document.body.hasAttribute('html-show-sidebar-toc')) {
+    document.body.removeAttribute('html-show-sidebar-toc')
+  } else {
+    document.body.setAttribute('html-show-sidebar-toc', true)
+  }
+})
+</script>
+      
+  </html>

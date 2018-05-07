@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <title>2.2.1-RepricingFlow</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="frontend\katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+      <style> 
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+ 
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview   ">
+      <h2>调价流程</h2>
+<h4 class="mume-header" id="%E6%95%B4%E4%BD%93%E8%B0%83%E4%BB%B7%E6%B5%81%E7%A8%8B">整体调价流程</h4>
+
+<p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="796px" preserveAspectRatio="none" style="width:887px;height:796px;" version="1.1" viewBox="0 0 887 796" width="887px" zoomAndPan="magnify"><defs><filter height="300%" id="fgesrmxhig3da" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><ellipse cx="494.125" cy="20" fill="#32CD32" filter="url(#fgesrmxhig3da)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"></ellipse><polygon fill="#FEFECE" filter="url(#fgesrmxhig3da)" points="480.125,50,508.125,50,520.125,62,508.125,74,480.125,74,468.125,62,480.125,50" style="stroke: #A80036; stroke-width: 1.5;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="28" x="480.125" y="67.0945">缺货?</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="11" x="520.125" y="59.583">是</text><ellipse cx="551.125" cy="62" fill="none" filter="url(#fgesrmxhig3da)" rx="10" ry="10" style="stroke: #006400; stroke-width: 1.0;"></ellipse><ellipse cx="551.625" cy="62.5" fill="#006400" filter="url(#fgesrmxhig3da)" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"></ellipse><polygon fill="#FEFECE" filter="url(#fgesrmxhig3da)" points="455.625,94,532.625,94,544.625,106,532.625,118,455.625,118,443.625,106,455.625,94" style="stroke: #A80036; stroke-width: 1.5;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="77" x="455.625" y="111.0945">是否有跟卖者？</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="11" x="432.625" y="103.583">无</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="11" x="544.625" y="103.583">有</text><rect fill="#EEFFEE" filter="url(#fgesrmxhig3da)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="164" x="262.375" y="128"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="144" x="272.375" y="151.752">应用"全局设置-无竞争设置"</text><ellipse cx="344.375" cy="209.3887" fill="#FFFFFF" filter="url(#fgesrmxhig3da)" rx="10" ry="10" style="stroke: #006400; stroke-width: 1.5;"></ellipse><line style="stroke: #006400; stroke-width: 2.5;" x1="338.1878" x2="350.5622" y1="203.2015" y2="215.5759"></line><line style="stroke: #006400; stroke-width: 2.5;" x1="350.5622" x2="338.1878" y1="203.2015" y2="215.5759"></line><polygon fill="#FEFECE" filter="url(#fgesrmxhig3da)" points="539.875,128,747.875,128,759.875,140,747.875,152,539.875,152,527.875,140,539.875,128" style="stroke: #A80036; stroke-width: 1.5;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="208" x="539.875" y="145.0945">未占据黄金购物车 &amp; 选择"购物车价格"策略</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="18" x="509.875" y="137.583">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="12" x="759.875" y="137.583">no</text><ellipse cx="517.875" cy="221.5115" fill="#FFFFFF" filter="url(#fgesrmxhig3da)" rx="10" ry="10" style="stroke: #006400; stroke-width: 1.5;"></ellipse><line style="stroke: #006400; stroke-width: 2.5;" x1="511.6878" x2="524.0622" y1="215.3243" y2="227.6987"></line><line style="stroke: #006400; stroke-width: 2.5;" x1="524.0622" x2="511.6878" y1="215.3243" y2="227.6987"></line><polygon fill="#FEFECE" filter="url(#fgesrmxhig3da)" points="468.375,162,567.375,162,579.375,174,567.375,186,468.375,186,456.375,174,468.375,162" style="stroke: #A80036; stroke-width: 1.5;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="18" x="521.875" y="198.606">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="99" x="468.375" y="179.0945">购物车卖家被排除？</text><rect fill="#EEFFEE" filter="url(#fgesrmxhig3da)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="203" x="668.375" y="162"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="183" x="678.375" y="185.752">按"全局-筛选条件设置" 筛选竞争者</text><rect fill="#EEFFEE" filter="url(#fgesrmxhig3da)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="164" x="687.875" y="282.9001"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="144" x="697.875" y="306.6521">应用"全局设置-无竞争设置"</text><ellipse cx="769.875" cy="364.2888" fill="#FFFFFF" filter="url(#fgesrmxhig3da)" rx="10" ry="10" style="stroke: #006400; stroke-width: 1.5;"></ellipse><line style="stroke: #006400; stroke-width: 2.5;" x1="763.6878" x2="776.0622" y1="358.1016" y2="370.476"></line><line style="stroke: #006400; stroke-width: 2.5;" x1="776.0622" x2="763.6878" y1="358.1016" y2="370.476"></line><polygon fill="#FEFECE" filter="url(#fgesrmxhig3da)" points="736.875,233.3887,802.875,233.3887,814.875,245.3887,802.875,257.3887,736.875,257.3887,724.875,245.3887,736.875,233.3887" style="stroke: #A80036; stroke-width: 1.5;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="11" x="773.875" y="269.9946">无</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="66" x="736.875" y="250.4832">有无竞争者？</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="11" x="814.875" y="242.9717">有</text><polygon fill="#FEFECE" filter="url(#fgesrmxhig3da)" points="643.875,402.2888,655.875,414.2888,643.875,426.2888,631.875,414.2888,643.875,402.2888" style="stroke: #A80036; stroke-width: 1.5;"></polygon><polygon fill="#FEFECE" filter="url(#fgesrmxhig3da)" points="439.125,446.2888,549.125,446.2888,561.125,458.2888,549.125,470.2888,439.125,470.2888,427.125,458.2888,439.125,446.2888" style="stroke: #A80036; stroke-width: 1.5;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="110" x="439.125" y="463.3833">是否占据黄金购物车？</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="18" x="409.125" y="455.8718">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="12" x="561.125" y="455.8718">no</text><polygon fill="#FEFECE" filter="url(#fgesrmxhig3da)" points="225.25,480.2888,461.25,480.2888,473.25,492.2888,461.25,504.2888,225.25,504.2888,213.25,492.2888,225.25,480.2888" style="stroke: #A80036; stroke-width: 1.5;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="236" x="225.25" y="497.3833">"黄金购物车设置"中选择"暂停黄金购物车"策略？</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="18" x="195.25" y="489.8718">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="12" x="473.25" y="489.8718">no</text><polygon fill="#FEFECE" filter="url(#fgesrmxhig3da)" points="100,514.2888,303,514.2888,315,526.2888,303,538.2888,100,538.2888,88,526.2888,100,514.2888" style="stroke: #A80036; stroke-width: 1.5;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="203" x="100" y="531.3833">"智能调价设置"中的策略是"购物车价格"？</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="18" x="70" y="523.8718">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="12" x="315" y="523.8718">no</text><rect fill="#D3D3D3" filter="url(#fgesrmxhig3da)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="136" x="10" y="548.2888"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="116" x="20" y="572.0408">不进行调价(维持原价)</text><ellipse cx="78" cy="614.6775" fill="#FFFFFF" filter="url(#fgesrmxhig3da)" rx="10" ry="10" style="stroke: #006400; stroke-width: 1.5;"></ellipse><line style="stroke: #006400; stroke-width: 2.5;" x1="71.8128" x2="84.1872" y1="608.4903" y2="620.8647"></line><line style="stroke: #006400; stroke-width: 2.5;" x1="84.1872" x2="71.8128" y1="608.4903" y2="620.8647"></line><rect fill="#87CEFA" filter="url(#fgesrmxhig3da)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="124" x="263" y="548.2888"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="104" x="273" y="572.0408">应用"智能调价设置"</text><rect fill="#ADFF2F" filter="url(#fgesrmxhig3da)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="136" x="417" y="514.2888"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="116" x="427" y="538.0408">应用"黄金购物车设置"</text><polygon fill="#FEFECE" filter="url(#fgesrmxhig3da)" points="343.25,634.6775,355.25,646.6775,343.25,658.6775,331.25,646.6775,343.25,634.6775" style="stroke: #A80036; stroke-width: 1.5;"></polygon><rect fill="#87CEFA" filter="url(#fgesrmxhig3da)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="124" x="583" y="480.2888"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="104" x="593" y="504.0408">应用"智能调价设置"</text><polygon fill="#FEFECE" filter="url(#fgesrmxhig3da)" points="494.125,664.6775,506.125,676.6775,494.125,688.6775,482.125,676.6775,494.125,664.6775" style="stroke: #A80036; stroke-width: 1.5;"></polygon><rect fill="#EEFFEE" filter="url(#fgesrmxhig3da)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="124" x="432.125" y="708.6775"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="104" x="442.125" y="732.4294">应用"安全调价设置"</text><ellipse cx="494.125" cy="775.0662" fill="none" filter="url(#fgesrmxhig3da)" rx="10" ry="10" style="stroke: #006400; stroke-width: 1.0;"></ellipse><ellipse cx="494.625" cy="775.5662" fill="#006400" filter="url(#fgesrmxhig3da)" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"></ellipse><line style="stroke: #008000; stroke-width: 1.5;" x1="494.125" x2="494.125" y1="74" y2="94"></line><polygon fill="#008000" points="490.125,84,494.125,94,498.125,84,494.125,88" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="520.125" x2="541.125" y1="62" y2="62"></line><polygon fill="#008000" points="531.125,58,541.125,62,531.125,66,535.125,62" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="494.125" x2="494.125" y1="30" y2="50"></line><polygon fill="#008000" points="490.125,40,494.125,50,498.125,40,494.125,44" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="344.375" x2="344.375" y1="164.3887" y2="199.3887"></line><polygon fill="#008000" points="340.375,189.3887,344.375,199.3887,348.375,189.3887,344.375,193.3887" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="517.875" x2="517.875" y1="186" y2="211.5115"></line><polygon fill="#008000" points="513.875,201.5115,517.875,211.5115,521.875,201.5115,517.875,205.5115" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="579.375" x2="591.375" y1="174" y2="174"></line><polygon fill="#008000" points="587.375,288.9001,591.375,298.9001,595.375,288.9001,591.375,292.9001" style="stroke: #008000; stroke-width: 1.5;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="591.375" x2="591.375" y1="174" y2="414.2888"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="591.375" x2="631.875" y1="414.2888" y2="414.2888"></line><polygon fill="#008000" points="621.875,410.2888,631.875,414.2888,621.875,418.2888,625.875,414.2888" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="769.875" x2="769.875" y1="319.2888" y2="354.2888"></line><polygon fill="#008000" points="765.875,344.2888,769.875,354.2888,773.875,344.2888,769.875,348.2888" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="769.875" x2="769.875" y1="257.3887" y2="282.9001"></line><polygon fill="#008000" points="765.875,272.9001,769.875,282.9001,773.875,272.9001,769.875,276.9001" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="814.875" x2="861.875" y1="245.3887" y2="245.3887"></line><polygon fill="#008000" points="857.875,324.5945,861.875,334.5945,865.875,324.5945,861.875,328.5945" style="stroke: #008000; stroke-width: 1.5;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="861.875" x2="861.875" y1="245.3887" y2="414.2888"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="861.875" x2="655.875" y1="414.2888" y2="414.2888"></line><polygon fill="#008000" points="665.875,410.2888,655.875,414.2888,665.875,418.2888,661.875,414.2888" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="769.875" x2="769.875" y1="198.3887" y2="233.3887"></line><polygon fill="#008000" points="765.875,223.3887,769.875,233.3887,773.875,223.3887,769.875,227.3887" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="527.875" x2="517.875" y1="140" y2="140"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="517.875" x2="517.875" y1="140" y2="162"></line><polygon fill="#008000" points="513.875,152,517.875,162,521.875,152,517.875,156" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="759.875" x2="769.875" y1="140" y2="140"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="769.875" x2="769.875" y1="140" y2="162"></line><polygon fill="#008000" points="765.875,152,769.875,162,773.875,152,769.875,156" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="443.625" x2="344.375" y1="106" y2="106"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="344.375" x2="344.375" y1="106" y2="128"></line><polygon fill="#008000" points="340.375,118,344.375,128,348.375,118,344.375,122" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="544.625" x2="643.875" y1="106" y2="106"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="643.875" x2="643.875" y1="106" y2="128"></line><polygon fill="#008000" points="639.875,118,643.875,128,647.875,118,643.875,122" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="643.875" x2="643.875" y1="426.2888" y2="431.2888"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="643.875" x2="494.125" y1="431.2888" y2="431.2888"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="494.125" x2="494.125" y1="431.2888" y2="446.2888"></line><polygon fill="#008000" points="490.125,436.2888,494.125,446.2888,498.125,436.2888,494.125,440.2888" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="78" x2="78" y1="584.6775" y2="604.6775"></line><polygon fill="#008000" points="74,594.6775,78,604.6775,82,594.6775,78,598.6775" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="88" x2="78" y1="526.2888" y2="526.2888"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="78" x2="78" y1="526.2888" y2="548.2888"></line><polygon fill="#008000" points="74,538.2888,78,548.2888,82,538.2888,78,542.2888" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="315" x2="325" y1="526.2888" y2="526.2888"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="325" x2="325" y1="526.2888" y2="548.2888"></line><polygon fill="#008000" points="321,538.2888,325,548.2888,329,538.2888,325,542.2888" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="325" x2="325" y1="584.6775" y2="646.6775"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="325" x2="331.25" y1="646.6775" y2="646.6775"></line><polygon fill="#008000" points="321.25,642.6775,331.25,646.6775,321.25,650.6775,325.25,646.6775" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="213.25" x2="201.5" y1="492.2888" y2="492.2888"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="201.5" x2="201.5" y1="492.2888" y2="514.2888"></line><polygon fill="#008000" points="197.5,504.2888,201.5,514.2888,205.5,504.2888,201.5,508.2888" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="473.25" x2="485" y1="492.2888" y2="492.2888"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="485" x2="485" y1="492.2888" y2="514.2888"></line><polygon fill="#008000" points="481,504.2888,485,514.2888,489,504.2888,485,508.2888" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="485" x2="485" y1="550.6775" y2="646.6775"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="485" x2="355.25" y1="646.6775" y2="646.6775"></line><polygon fill="#008000" points="365.25,642.6775,355.25,646.6775,365.25,650.6775,361.25,646.6775" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="427.125" x2="343.25" y1="458.2888" y2="458.2888"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="343.25" x2="343.25" y1="458.2888" y2="480.2888"></line><polygon fill="#008000" points="339.25,470.2888,343.25,480.2888,347.25,470.2888,343.25,474.2888" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="561.125" x2="645" y1="458.2888" y2="458.2888"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="645" x2="645" y1="458.2888" y2="480.2888"></line><polygon fill="#008000" points="641,470.2888,645,480.2888,649,470.2888,645,474.2888" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="343.25" x2="343.25" y1="658.6775" y2="676.6775"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="343.25" x2="482.125" y1="676.6775" y2="676.6775"></line><polygon fill="#008000" points="472.125,672.6775,482.125,676.6775,472.125,680.6775,476.125,676.6775" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="645" x2="645" y1="516.6775" y2="676.6775"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="645" x2="506.125" y1="676.6775" y2="676.6775"></line><polygon fill="#008000" points="516.125,672.6775,506.125,676.6775,516.125,680.6775,512.125,676.6775" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="494.125" x2="494.125" y1="688.6775" y2="708.6775"></line><polygon fill="#008000" points="490.125,698.6775,494.125,708.6775,498.125,698.6775,494.125,702.6775" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="494.125" x2="494.125" y1="745.0662" y2="765.0662"></line><polygon fill="#008000" points="490.125,755.0662,494.125,765.0662,498.125,755.0662,494.125,759.0662" style="stroke: #008000; stroke-width: 1.0;"></polygon><!--
+@startuml
+
+skinparam activityBackgroundColor #EEFFEE
+skinparam activityBorderColor Olive
+skinparam activityArrowColor Green
+skinparam activityStartColor LimeGreen
+skinparam activityEndColor DarkGreen
+
+start
+if(缺货?) then(是)
+  stop
+endif
+
+if(是否有跟卖者？) then(无)
+  :应用"全局设置-无竞争设置";
+  end
+else(有)
+  if(未占据黄金购物车 & 选择"购物车价格"策略) then(yes)
+    if(购物车卖家被排除？) then(yes)
+      end
+    endif
+  else(no)
+    :按"全局-筛选条件设置" 筛选竞争者;
+    if(有无竞争者？) then(无)
+      :应用"全局设置-无竞争设置";
+      end
+    else(有)
+    endif
+  endif
+endif
+
+if(是否占据黄金购物车？) then(yes)
+    if("黄金购物车设置"中选择"暂停黄金购物车"策略？) then(yes)
+        if("智能调价设置"中的策略是"购物车价格"？) then(yes)
+            #LightGrey:不进行调价(维持原价);
+            end
+        else(no)
+            #LightSkyBlue:应用"智能调价设置";
+        endif
+    else(no)
+        #GreenYellow:应用"黄金购物车设置";
+    endif
+else(no)
+    #LightSkyBlue:应用"智能调价设置";
+endif
+
+:应用"安全调价设置";
+stop
+@enduml
+
+PlantUML version 1.2017.19(Sun Nov 12 19:46:22 CST 2017)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 9+181
+Operating System: Windows 10
+OS Version: 10.0
+Default Encoding: GBK
+Language: zh
+Country: CN
+--></g></svg></p>
+<h4 class="mume-header" id="%E6%99%BA%E8%83%BD%E8%B0%83%E4%BB%B7%E6%B5%81%E7%A8%8B">智能调价流程</h4>
+
+<p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="607px" preserveAspectRatio="none" style="width:912px;height:607px;" version="1.1" viewBox="0 0 912 607" width="912px" zoomAndPan="magnify"><defs><filter height="300%" id="f5er7pzvlwbzp" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><ellipse cx="429.5" cy="20" fill="#32CD32" filter="url(#f5er7pzvlwbzp)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#EEFFEE" filter="url(#f5er7pzvlwbzp)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="92" x="383.5" y="50"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="72" x="393.5" y="73.752">竞争策略选择</text><polygon fill="#FEFECE" filter="url(#f5er7pzvlwbzp)" points="391,106.3887,468,106.3887,480,118.3887,468,130.3887,391,130.3887,379,118.3887,391,106.3887" style="stroke: #A80036; stroke-width: 1.5;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="77" x="391" y="123.4832">最低价格策略？</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="18" x="361" y="115.9717">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="12" x="480" y="115.9717">no</text><rect fill="#EEFFEE" filter="url(#f5er7pzvlwbzp)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="116" x="148" y="140.3887"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="96" x="158" y="164.1406">按类型过滤竞争者</text><rect fill="#EEFFEE" filter="url(#f5er7pzvlwbzp)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="176" x="118" y="196.7773"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="156" x="128" y="220.5293">比价对象是出价最低的竞争者</text><polygon fill="#FEFECE" filter="url(#f5er7pzvlwbzp)" points="134.5,268.166,277.5,268.166,289.5,280.166,277.5,292.166,134.5,292.166,122.5,280.166,134.5,268.166" style="stroke: #A80036; stroke-width: 1.5;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="143" x="134.5" y="285.2605">比价者类型的高级设定启用？</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="18" x="104.5" y="277.749">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="12" x="289.5" y="277.749">no</text><rect fill="#EEFFEE" filter="url(#f5er7pzvlwbzp)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="184" x="10" y="302.166"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="164" x="20" y="325.918">应用高级设定规则(低价竞争者)</text><rect fill="#EEFFEE" filter="url(#f5er7pzvlwbzp)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="192" x="214" y="302.166"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="172" x="224" y="325.918">应用最低价格策略-通用调价规则</text><rect fill="#EEFFEE" filter="url(#f5er7pzvlwbzp)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="92" x="264" y="373.5547"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="72" x="274" y="397.3066">最小价格保障</text><polygon fill="#FEFECE" filter="url(#f5er7pzvlwbzp)" points="206,415.9434,218,427.9434,206,439.9434,194,427.9434,206,415.9434" style="stroke: #A80036; stroke-width: 1.5;"></polygon><rect fill="#EEFFEE" filter="url(#f5er7pzvlwbzp)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="176" x="565" y="140.3887"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="156" x="575" y="164.1406">比价对象是黄金购物车拥有者</text><polygon fill="#FEFECE" filter="url(#f5er7pzvlwbzp)" points="570.5,196.7773,735.5,196.7773,747.5,208.7773,735.5,220.7773,570.5,220.7773,558.5,208.7773,570.5,196.7773" style="stroke: #A80036; stroke-width: 1.5;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="165" x="570.5" y="213.8718">购物车卖家类型的高级设定启用？</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="18" x="540.5" y="206.3604">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="12" x="747.5" y="206.3604">no</text><rect fill="#EEFFEE" filter="url(#f5er7pzvlwbzp)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="184" x="446" y="230.7773"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="164" x="456" y="254.5293">应用高级设定规则(购物车卖家)</text><rect fill="#EEFFEE" filter="url(#f5er7pzvlwbzp)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="204" x="666" y="230.7773"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="184" x="676" y="254.5293">应用购物车价格策略-通用调价规则</text><rect fill="#EEFFEE" filter="url(#f5er7pzvlwbzp)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="216" x="660" y="351.6775"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="196" x="670" y="375.4294">应用"Amazon取消购物车资格的设置"</text><polygon fill="#FEFECE" filter="url(#f5er7pzvlwbzp)" points="704,302.166,832,302.166,844,314.166,832,326.166,704,326.166,692,314.166,704,302.166" style="stroke: #A80036; stroke-width: 1.5;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="18" x="772" y="338.772">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="128" x="704" y="319.2605">Amazon取消购物车资格？</text><polygon fill="#FEFECE" filter="url(#f5er7pzvlwbzp)" points="768,413.5776,780,425.5776,768,437.5776,756,425.5776,768,413.5776" style="stroke: #A80036; stroke-width: 1.5;"></polygon><rect fill="#EEFFEE" filter="url(#f5er7pzvlwbzp)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="92" x="722" y="459.9434"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="72" x="732" y="483.6953">最小价格保障</text><polygon fill="#FEFECE" filter="url(#f5er7pzvlwbzp)" points="653,502.332,665,514.332,653,526.332,641,514.332,653,502.332" style="stroke: #A80036; stroke-width: 1.5;"></polygon><polygon fill="#FEFECE" filter="url(#f5er7pzvlwbzp)" points="429.5,532.332,441.5,544.332,429.5,556.332,417.5,544.332,429.5,532.332" style="stroke: #A80036; stroke-width: 1.5;"></polygon><ellipse cx="429.5" cy="586.332" fill="none" filter="url(#f5er7pzvlwbzp)" rx="10" ry="10" style="stroke: #006400; stroke-width: 1.0;"></ellipse><ellipse cx="430" cy="586.832" fill="#006400" filter="url(#f5er7pzvlwbzp)" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"></ellipse><line style="stroke: #008000; stroke-width: 1.5;" x1="429.5" x2="429.5" y1="30" y2="50"></line><polygon fill="#008000" points="425.5,40,429.5,50,433.5,40,429.5,44" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="206" x2="206" y1="176.7773" y2="196.7773"></line><polygon fill="#008000" points="202,186.7773,206,196.7773,210,186.7773,206,190.7773" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="310" x2="310" y1="338.5547" y2="373.5547"></line><polygon fill="#008000" points="306,363.5547,310,373.5547,314,363.5547,310,367.5547" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="122.5" x2="102" y1="280.166" y2="280.166"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="102" x2="102" y1="280.166" y2="302.166"></line><polygon fill="#008000" points="98,292.166,102,302.166,106,292.166,102,296.166" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="289.5" x2="310" y1="280.166" y2="280.166"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="310" x2="310" y1="280.166" y2="302.166"></line><polygon fill="#008000" points="306,292.166,310,302.166,314,292.166,310,296.166" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="102" x2="102" y1="338.5547" y2="427.9434"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="102" x2="194" y1="427.9434" y2="427.9434"></line><polygon fill="#008000" points="184,423.9434,194,427.9434,184,431.9434,188,427.9434" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="310" x2="310" y1="409.9434" y2="427.9434"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="310" x2="218" y1="427.9434" y2="427.9434"></line><polygon fill="#008000" points="228,423.9434,218,427.9434,228,431.9434,224,427.9434" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="206" x2="206" y1="233.166" y2="268.166"></line><polygon fill="#008000" points="202,258.166,206,268.166,210,258.166,206,262.166" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="768" x2="768" y1="326.166" y2="351.6775"></line><polygon fill="#008000" points="764,341.6775,768,351.6775,772,341.6775,768,345.6775" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="844" x2="886" y1="314.166" y2="314.166"></line><polygon fill="#008000" points="882,359.8718,886,369.8718,890,359.8718,886,363.8718" style="stroke: #008000; stroke-width: 1.5;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="886" x2="886" y1="314.166" y2="425.5776"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="886" x2="780" y1="425.5776" y2="425.5776"></line><polygon fill="#008000" points="790,421.5776,780,425.5776,790,429.5776,786,425.5776" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="768" x2="768" y1="388.0662" y2="413.5776"></line><polygon fill="#008000" points="764,403.5776,768,413.5776,772,403.5776,768,407.5776" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="768" x2="768" y1="267.166" y2="302.166"></line><polygon fill="#008000" points="764,292.166,768,302.166,772,292.166,768,296.166" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="768" x2="768" y1="437.5776" y2="459.9434"></line><polygon fill="#008000" points="764,449.9434,768,459.9434,772,449.9434,768,453.9434" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="558.5" x2="538" y1="208.7773" y2="208.7773"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="538" x2="538" y1="208.7773" y2="230.7773"></line><polygon fill="#008000" points="534,220.7773,538,230.7773,542,220.7773,538,224.7773" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="747.5" x2="768" y1="208.7773" y2="208.7773"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="768" x2="768" y1="208.7773" y2="230.7773"></line><polygon fill="#008000" points="764,220.7773,768,230.7773,772,220.7773,768,224.7773" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="538" x2="538" y1="267.166" y2="514.332"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="538" x2="641" y1="514.332" y2="514.332"></line><polygon fill="#008000" points="631,510.332,641,514.332,631,518.332,635,514.332" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="768" x2="768" y1="496.332" y2="514.332"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="768" x2="665" y1="514.332" y2="514.332"></line><polygon fill="#008000" points="675,510.332,665,514.332,675,518.332,671,514.332" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="653" x2="653" y1="176.7773" y2="196.7773"></line><polygon fill="#008000" points="649,186.7773,653,196.7773,657,186.7773,653,190.7773" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="379" x2="206" y1="118.3887" y2="118.3887"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="206" x2="206" y1="118.3887" y2="140.3887"></line><polygon fill="#008000" points="202,130.3887,206,140.3887,210,130.3887,206,134.3887" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="480" x2="653" y1="118.3887" y2="118.3887"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="653" x2="653" y1="118.3887" y2="140.3887"></line><polygon fill="#008000" points="649,130.3887,653,140.3887,657,130.3887,653,134.3887" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="206" x2="206" y1="439.9434" y2="544.332"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="206" x2="417.5" y1="544.332" y2="544.332"></line><polygon fill="#008000" points="407.5,540.332,417.5,544.332,407.5,548.332,411.5,544.332" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="653" x2="653" y1="526.332" y2="544.332"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="653" x2="441.5" y1="544.332" y2="544.332"></line><polygon fill="#008000" points="451.5,540.332,441.5,544.332,451.5,548.332,447.5,544.332" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="429.5" x2="429.5" y1="86.3887" y2="106.3887"></line><polygon fill="#008000" points="425.5,96.3887,429.5,106.3887,433.5,96.3887,429.5,100.3887" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="429.5" x2="429.5" y1="556.332" y2="576.332"></line><polygon fill="#008000" points="425.5,566.332,429.5,576.332,433.5,566.332,429.5,570.332" style="stroke: #008000; stroke-width: 1.0;"></polygon><!--
+@startuml
+skinparam activityBackgroundColor #EEFFEE
+skinparam activityBorderColor Olive
+skinparam activityArrowColor Green
+skinparam activityStartColor LimeGreen
+skinparam activityEndColor DarkGreen
+
+start
+:竞争策略选择;
+if(最低价格策略？) then(yes)
+  :按类型过滤竞争者;
+  :比价对象是出价最低的竞争者;
+  if(比价者类型的高级设定启用？) then(yes)
+    :应用高级设定规则(低价竞争者);
+  else(no)
+    :应用最低价格策略-通用调价规则;
+    :最小价格保障;
+  endif
+else(no)
+  :比价对象是黄金购物车拥有者;
+  if(购物车卖家类型的高级设定启用？) then(yes)
+    :应用高级设定规则(购物车卖家);
+  else(no)
+    :应用购物车价格策略-通用调价规则;
+    if(Amazon取消购物车资格？) then(yes)
+      :应用"Amazon取消购物车资格的设置";
+    endif
+    :最小价格保障;
+  endif
+endif
+
+stop
+@enduml
+
+PlantUML version 1.2017.19(Sun Nov 12 19:46:22 CST 2017)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 9+181
+Operating System: Windows 10
+OS Version: 10.0
+Default Encoding: GBK
+Language: zh
+Country: CN
+--></g></svg></p>
+<h4 class="mume-header" id="%E9%BB%84%E9%87%91%E8%B4%AD%E7%89%A9%E8%BD%A6%E8%B0%83%E4%BB%B7%E6%B5%81%E7%A8%8B">黄金购物车调价流程</h4>
+
+<p><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="519px" preserveAspectRatio="none" style="width:827px;height:519px;" version="1.1" viewBox="0 0 827 519" width="827px" zoomAndPan="magnify"><defs><filter height="300%" id="f7a85ah4g1cuo" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"></feGaussianBlur><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend></filter></defs><g><ellipse cx="418" cy="20" fill="#32CD32" filter="url(#f7a85ah4g1cuo)" rx="10" ry="10" style="stroke: none; stroke-width: 1.0;"></ellipse><rect fill="#EEFFEE" filter="url(#f7a85ah4g1cuo)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="104" x="366" y="50"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="84" x="376" y="73.752">选择竞争者类型</text><rect fill="#EEFFEE" filter="url(#f7a85ah4g1cuo)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="92" x="372" y="106.3887"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="72" x="382" y="130.1406">选择竞争策略</text><polygon fill="#FEFECE" filter="url(#f7a85ah4g1cuo)" points="32,162.7773,142,162.7773,154,174.7773,142,186.7773,32,186.7773,20,174.7773,32,162.7773" style="stroke: #A80036; stroke-width: 1.5;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="18" x="91" y="199.3833">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="110" x="32" y="179.8718">暂停黄金购物车设定？</text><ellipse cx="87" cy="231.8003" fill="#FFFFFF" filter="url(#f7a85ah4g1cuo)" rx="10" ry="10" style="stroke: #006400; stroke-width: 1.5;"></ellipse><line style="stroke: #006400; stroke-width: 2.5;" x1="80.8128" x2="93.1872" y1="225.6131" y2="237.9875"></line><line style="stroke: #006400; stroke-width: 2.5;" x1="93.1872" x2="80.8128" y1="225.6131" y2="237.9875"></line><polygon fill="#FEFECE" filter="url(#f7a85ah4g1cuo)" points="186,162.7773,307,162.7773,319,174.7773,307,186.7773,186,186.7773,174,174.7773,186,162.7773" style="stroke: #A80036; stroke-width: 1.5;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="18" x="250.5" y="199.3833">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="121" x="186" y="179.8718">维持我的黄金购物车价格</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="12" x="319" y="172.3604">no</text><rect fill="#EEFFEE" filter="url(#f7a85ah4g1cuo)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="68" x="212.5" y="221.8003"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="48" x="222.5" y="245.5522">维持原价</text><polygon fill="#FEFECE" filter="url(#f7a85ah4g1cuo)" points="434.5,212.7773,511.5,212.7773,523.5,224.7773,511.5,236.7773,434.5,236.7773,422.5,224.7773,434.5,212.7773" style="stroke: #A80036; stroke-width: 1.5;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="18" x="477" y="249.3833">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="77" x="434.5" y="229.8718">自动跟随最低价</text><polygon fill="#FEFECE" filter="url(#f7a85ah4g1cuo)" points="429,271.8003,517,271.8003,529,283.8003,517,295.8003,429,295.8003,417,283.8003,429,271.8003" style="stroke: #A80036; stroke-width: 1.5;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="88" x="429" y="288.8948">您的价格是最低价</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="18" x="399" y="281.3833">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="12" x="529" y="281.3833">no</text><rect fill="#EEFFEE" filter="url(#f7a85ah4g1cuo)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="116" x="349" y="305.8003"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="96" x="359" y="329.5522">基于第二顺位提价</text><rect fill="#EEFFEE" filter="url(#f7a85ah4g1cuo)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="104" x="487" y="305.8003"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="84" x="497" y="329.5522">基于最低价降价</text><polygon fill="#FEFECE" filter="url(#f7a85ah4g1cuo)" points="473,348.189,485,360.189,473,372.189,461,360.189,473,348.189" style="stroke: #A80036; stroke-width: 1.5;"></polygon><polygon fill="#FEFECE" filter="url(#f7a85ah4g1cuo)" points="633,212.7773,754,212.7773,766,224.7773,754,236.7773,633,236.7773,621,224.7773,633,212.7773" style="stroke: #A80036; stroke-width: 1.5;"></polygon><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="18" x="697.5" y="249.3833">yes</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="121" x="633" y="229.8718">提高我的黄金购物车价格</text><rect fill="#EEFFEE" filter="url(#f7a85ah4g1cuo)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="116" x="635.5" y="271.8003"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="96" x="645.5" y="295.5522">基于第二顺位提价</text><rect fill="#EEFFEE" filter="url(#f7a85ah4g1cuo)" height="36.3887" rx="12.5" ry="12.5" style="stroke: #808000; stroke-width: 1.5;" width="119" x="518" y="412.189"></rect><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="99" x="528" y="435.9409">最大/最小价格保障</text><ellipse cx="418" cy="498.5776" fill="none" filter="url(#f7a85ah4g1cuo)" rx="10" ry="10" style="stroke: #006400; stroke-width: 1.0;"></ellipse><ellipse cx="418.5" cy="499.0776" fill="#006400" filter="url(#f7a85ah4g1cuo)" rx="6" ry="6" style="stroke: none; stroke-width: 1.0;"></ellipse><line style="stroke: #008000; stroke-width: 1.5;" x1="418" x2="418" y1="30" y2="50"></line><polygon fill="#008000" points="414,40,418,50,422,40,418,44" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="418" x2="418" y1="86.3887" y2="106.3887"></line><polygon fill="#008000" points="414,96.3887,418,106.3887,422,96.3887,418,100.3887" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="417" x2="407" y1="283.8003" y2="283.8003"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="407" x2="407" y1="283.8003" y2="305.8003"></line><polygon fill="#008000" points="403,295.8003,407,305.8003,411,295.8003,407,299.8003" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="529" x2="539" y1="283.8003" y2="283.8003"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="539" x2="539" y1="283.8003" y2="305.8003"></line><polygon fill="#008000" points="535,295.8003,539,305.8003,543,295.8003,539,299.8003" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="407" x2="407" y1="342.189" y2="360.189"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="407" x2="461" y1="360.189" y2="360.189"></line><polygon fill="#008000" points="451,356.189,461,360.189,451,364.189,455,360.189" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="539" x2="539" y1="342.189" y2="360.189"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="539" x2="485" y1="360.189" y2="360.189"></line><polygon fill="#008000" points="495,356.189,485,360.189,495,364.189,491,360.189" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="473" x2="473" y1="236.7773" y2="271.8003"></line><polygon fill="#008000" points="469,261.8003,473,271.8003,477,261.8003,473,265.8003" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="473" x2="473" y1="372.189" y2="392.189"></line><polygon fill="#008000" points="469,382.189,473,392.189,477,382.189,473,386.189" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="693.5" x2="693.5" y1="236.7773" y2="271.8003"></line><polygon fill="#008000" points="689.5,261.8003,693.5,271.8003,697.5,261.8003,693.5,265.8003" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="693.5" x2="693.5" y1="308.189" y2="392.189"></line><polygon fill="#008000" points="689.5,382.189,693.5,392.189,697.5,382.189,693.5,386.189" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="523.5" x2="621" y1="224.7773" y2="224.7773"></line><polygon fill="#008000" points="611,220.7773,621,224.7773,611,228.7773,615,224.7773" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="319" x2="473" y1="174.7773" y2="174.7773"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="473" x2="473" y1="174.7773" y2="212.7773"></line><polygon fill="#008000" points="469,202.7773,473,212.7773,477,202.7773,473,206.7773" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="766" x2="801" y1="224.7773" y2="224.7773"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="801" x2="801" y1="224.7773" y2="392.189"></line><polygon fill="#008000" points="797,382.189,801,392.189,805,382.189,801,386.189" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="473" x2="801" y1="392.189" y2="392.189"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="577.5" x2="577.5" y1="392.189" y2="412.189"></line><polygon fill="#008000" points="573.5,402.189,577.5,412.189,581.5,402.189,577.5,406.189" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="87" x2="87" y1="186.7773" y2="221.8003"></line><polygon fill="#008000" points="83,211.8003,87,221.8003,91,211.8003,87,215.8003" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="246.5" x2="246.5" y1="186.7773" y2="221.8003"></line><polygon fill="#008000" points="242.5,211.8003,246.5,221.8003,250.5,211.8003,246.5,215.8003" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="246.5" x2="246.5" y1="258.189" y2="468.5776"></line><polygon fill="#008000" points="242.5,458.5776,246.5,468.5776,250.5,458.5776,246.5,462.5776" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="154" x2="174" y1="174.7773" y2="174.7773"></line><polygon fill="#008000" points="164,170.7773,174,174.7773,164,178.7773,168,174.7773" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="418" x2="418" y1="142.7773" y2="147.7773"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="418" x2="87" y1="147.7773" y2="147.7773"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="87" x2="87" y1="147.7773" y2="162.7773"></line><polygon fill="#008000" points="83,152.7773,87,162.7773,91,152.7773,87,156.7773" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="577.5" x2="577.5" y1="448.5776" y2="468.5776"></line><polygon fill="#008000" points="573.5,458.5776,577.5,468.5776,581.5,458.5776,577.5,462.5776" style="stroke: #008000; stroke-width: 1.0;"></polygon><line style="stroke: #008000; stroke-width: 1.5;" x1="246.5" x2="577.5" y1="468.5776" y2="468.5776"></line><line style="stroke: #008000; stroke-width: 1.5;" x1="418" x2="418" y1="468.5776" y2="488.5776"></line><polygon fill="#008000" points="414,478.5776,418,488.5776,422,478.5776,418,482.5776" style="stroke: #008000; stroke-width: 1.0;"></polygon><!--
+@startuml
+skinparam activityBackgroundColor #EEFFEE
+skinparam activityBorderColor Olive
+skinparam activityArrowColor Green
+skinparam activityStartColor LimeGreen
+skinparam activityEndColor DarkGreen
+
+start
+:选择竞争者类型;
+:选择竞争策略;
+if(暂停黄金购物车设定？) then(yes)
+  end
+else if(维持我的黄金购物车价格) then(yes)
+  :维持原价;
+else(no)
+  if(自动跟随最低价) then(yes)
+    if(您的价格是最低价) then(yes)
+      :基于第二顺位提价;
+    else(no)
+      :基于最低价降价;
+    endif
+  else if(提高我的黄金购物车价格) then(yes)
+    :基于第二顺位提价;
+  endif 
+  :最大/最小价格保障;
+endif
+
+stop
+@enduml
+
+PlantUML version 1.2017.19(Sun Nov 12 19:46:22 CST 2017)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 9+181
+Operating System: Windows 10
+OS Version: 10.0
+Default Encoding: GBK
+Language: zh
+Country: CN
+--></g></svg></p>
+
+      </div>
+      <div class="md-sidebar-toc"><ul>
+<li><a href="#%E6%95%B4%E4%BD%93%E8%B0%83%E4%BB%B7%E6%B5%81%E7%A8%8B">整体调价流程</a></li>
+<li><a href="#%E6%99%BA%E8%83%BD%E8%B0%83%E4%BB%B7%E6%B5%81%E7%A8%8B">智能调价流程</a></li>
+<li><a href="#%E9%BB%84%E9%87%91%E8%B4%AD%E7%89%A9%E8%BD%A6%E8%B0%83%E4%BB%B7%E6%B5%81%E7%A8%8B">黄金购物车调价流程</a></li>
+</ul>
+</div>
+      <a id="sidebar-toc-btn">≡</a>
+    </body>
+    
+    
+    
+    
+    
+    <script>
+(function bindTaskListEvent() {
+  var taskListItemCheckboxes = document.body.getElementsByClassName('task-list-item-checkbox')
+  for (var i = 0; i < taskListItemCheckboxes.length; i++) {
+    var checkbox = taskListItemCheckboxes[i]
+    var li = checkbox.parentElement
+    if (li.tagName !== 'LI') li = li.parentElement
+    if (li.tagName === 'LI') {
+      li.classList.add('task-list-item')
+    }
+  }
+}())    
+</script>
+    
+<script>
+
+var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
+sidebarTOCBtn.addEventListener('click', function(event) {
+  event.stopPropagation()
+  if (document.body.hasAttribute('html-show-sidebar-toc')) {
+    document.body.removeAttribute('html-show-sidebar-toc')
+  } else {
+    document.body.setAttribute('html-show-sidebar-toc', true)
+  }
+})
+</script>
+      
+  </html>
