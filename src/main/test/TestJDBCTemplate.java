@@ -36,7 +36,7 @@ public class TestJDBCTemplate {
 
         /*****************************************4.设置JdbcTemplate的最大行数*****************************************/
         //void setMaxRows(int maxRows);  注意:只对查询返回结果集有效,对增删改无效.
-        jdbcTemplate.setMaxRows(2);
+        //jdbcTemplate.setMaxRows(2);
 
 
         /************************************************7.7 执行SQL语句************************************************/
@@ -101,7 +101,7 @@ public class TestJDBCTemplate {
         );
         System.out.println(JSON.toJSONString(batchResult));*/
 
-        List<Object[]> argsList = Lists.newArrayList();
+       /* List<Object[]> argsList = Lists.newArrayList();
         for (int i = 0; i < 100; i++) {
             argsList.add(new Object[]{"黄0号"});
         }
@@ -110,10 +110,10 @@ public class TestJDBCTemplate {
                 "DELETE FROM `t_user` WHERE `name` = ?",
                 argsList,
                 typeArr
-        );
-        System.out.println(JSON.toJSONString(batchResult));
+        );*/
+        /*System.out.println(JSON.toJSONString(batchResult));*/
 
-       /* List<Object[]> argsList = Lists.newArrayList();
+     /*   List<Object[]> argsList = Lists.newArrayList();
         for (int i = 0; i < 100; i++) {
             argsList.add(new Object[]{"黄"+i+"号","我要打死你"});
         }

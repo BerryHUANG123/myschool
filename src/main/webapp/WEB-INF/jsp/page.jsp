@@ -18,7 +18,7 @@
     年龄:<input type="text" id="age"/><br/>
     <button type="button" id="addUserBtn">提交</button>
 </div>
-<script src="../../static/jquery-core.js"></script>
+<script src="../../static/js/jquery/jquery-core.js"></script>
 <script type="text/javascript">
     //获取当前location
     var getBaseUrl = function () {
