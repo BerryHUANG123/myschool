@@ -4,8 +4,13 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class Java8Test extends BaseTest {
 
@@ -26,7 +31,7 @@ public class Java8Test extends BaseTest {
     public void test() {
         List<String> list = stringList.parallelStream().filter(s -> {
             return StringUtils.contains(s, "5");
-        }).collect(Collectors.toList());
+        }).collect(toList());
         System.out.println(JSON.toJSONString(list));
     }
 
@@ -47,5 +52,28 @@ public class Java8Test extends BaseTest {
 
     public static <T> boolean checkApple(Apple apple, ApplePredicate applePredicate, T t) {
         return applePredicate.test(apple, t);
+    }
+
+    @Test
+    public void testLambda(){
+        Apple realApple = new Apple();
+        realApple.setWeight(500);
+        ApplePredicate<Double> applePredicate = (apple,standWeight)-> apple.getWeight()>standWeight;
+        System.out.println(applePredicate.test(realApple,300.0));
+    }
+
+    @Test
+    public void test1(){
+        Predicate<String> p = StringUtils::isNotBlank;
+    }
+
+    public Callable<String> fetch(){
+        return () -> "1111";
+    }
+
+    @Test
+    public void test2(){
+        int[] intArr = new int[]{1, 2, 3, 4, 5};
+        System.out.println(Arrays.stream(intArr).map(operand -> operand*operand).boxed().collect(toList()));
     }
 }
