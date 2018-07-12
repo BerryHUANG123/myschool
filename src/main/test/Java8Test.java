@@ -7,6 +7,7 @@ import org.junit.Test;
 import us.codecraft.webmagic.selector.Json;
 
 import java.util.Arrays;
+import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Callable;
@@ -16,6 +17,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.summarizingInt;
 import static java.util.stream.Collectors.toList;
 
 public class Java8Test extends BaseTest {
@@ -118,6 +120,33 @@ public class Java8Test extends BaseTest {
     public void test7() {
         long a = Stream.iterate(2, n -> n * n).collect(counting());
         System.out.println(a);
+    }
+
+    @Test
+    public void test8() {
+        double a = -1.0 / 0.0;
+        double b = 1.0 / 0.0;
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(a == b);
+    }
+
+    @Test
+    public void test9() {
+        double a = 100.0 / 0;
+        System.out.println(a);
+    }
+
+    @Test
+    public void test10() {
+        List<Integer> numbers = Lists.newArrayList(null, null, null, null);
+
+        IntSummaryStatistics statistics = numbers.stream().filter(v -> v != null).collect(summarizingInt(value -> value));
+        System.out.println("最大值：" + statistics.getMax());
+        System.out.println("最小值：" + statistics.getMin());
+        System.out.println("平均值：" + statistics.getAverage());
+        System.out.println("求和：" + statistics.getSum());
+        System.out.println("个数：" + statistics.getCount());
     }
 
 }
