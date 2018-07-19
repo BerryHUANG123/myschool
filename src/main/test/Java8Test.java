@@ -1,21 +1,15 @@
-import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
-import us.codecraft.webmagic.selector.Json;
-
-import java.util.Arrays;
-import java.util.IntSummaryStatistics;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.Callable;
+import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
-
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.summarizingInt;
 import static java.util.stream.Collectors.toList;
@@ -147,6 +141,48 @@ public class Java8Test extends BaseTest {
         System.out.println("平均值：" + statistics.getAverage());
         System.out.println("求和：" + statistics.getSum());
         System.out.println("个数：" + statistics.getCount());
+    }
+
+    @Test
+    public void test11() {
+        int processorNum = Runtime.getRuntime().availableProcessors();
+        System.out.println(processorNum);
+    }
+
+    @Test
+    public void test12() {
+        Function<Long, Long> oldAddFunction = v -> {
+            long sum = 0;
+            for (int i = 1; i <= v; i++) {
+                sum += v;
+            }
+            return sum;
+        };
+
+        Function<Long, Long> newAddFunction = v -> LongStream.rangeClosed(1, v).parallel().reduce(0L,Long::sum);
+
+        Function<Long, Long> iterateAddFunction = n -> Stream.iterate(1L, i -> i + 1)
+                .limit(n)
+                .reduce(0L, Long::sum);
+
+        System.out.println(measureSumPerf(newAddFunction, 10000000L));
+    }
+
+    public long measureSumPerf(Function<Long, Long> adder, long n) {
+        long fastest = Long.MAX_VALUE;
+        for (int i = 0; i < 10; i++) {
+            long start = System.nanoTime();
+            long sum = adder.apply(n);
+            long duration = (System.nanoTime() - start) / 1_000_000;
+            if (duration < fastest) fastest = duration;
+        }
+        return fastest;
+    }
+
+    @Test
+    public void test13(){
+        Java8Interface java8Interface = new Java8InterfaceImpl();
+        System.out.println(java8Interface.defaultMethod());
     }
 
 }
