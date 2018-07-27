@@ -1,3 +1,4 @@
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -11,5 +12,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 //@ContextConfiguration(classes = AbstractDiagnosticFormatter.SimpleConfiguration.class)
 @ContextConfiguration(locations = {"classpath*:spring-config.xml"})
 public class BaseTest {
+
+    @Test
+    public void test(){
+        Thread thread =  new Thread();
+        System.out.println(thread.getState().name());
+        thread.start();
+        for(int i=0;i<1000;i++){
+            System.out.println(thread.getState().name());
+        }
+    }
 
 }
