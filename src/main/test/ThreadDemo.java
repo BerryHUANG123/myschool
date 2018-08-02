@@ -58,7 +58,7 @@ public class ThreadDemo extends BaseTest {
         //录入员工
         Runnable myRunnable = () -> {
             try {
-                add(userList,generateUser());
+                add(userList, generateUser());
                 System.out.println("新增一个user,当前集合大小:" + userList.size() + ",随机数是否死锁:" + RandomUtils.nextInt(0, 100));
             } catch (Exception e) {
                 e.printStackTrace();
@@ -85,17 +85,46 @@ public class ThreadDemo extends BaseTest {
             System.out.println("新增一个任务,当前集合大小:" + userList.size() + ",随机数是否死锁:" + RandomUtils.nextInt(0, 100));
         }
 
-       while (true){
-           if(threadPoolExecutor.isTerminated()){
-               long end = System.currentTimeMillis();
-               System.out.println("耗时" + (end - start) + "MS");
-               System.out.println(userList.size());
-               break;
-           }
-       }
+        while (true) {
+            if (threadPoolExecutor.isTerminated()) {
+                long end = System.currentTimeMillis();
+                System.out.println("耗时" + (end - start) + "MS");
+                System.out.println(userList.size());
+                break;
+            }
+        }
 
 
     }
+
+    public void test2() throws ExecutionException, InterruptedException {
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(4, 4, 10, TimeUnit.SECONDS, new SynchronousQueue<>());
+        CompletableFuture<List<User>> task1 = getTask(threadPoolExecutor);
+        CompletableFuture<List<User>> task2 = getTask(threadPoolExecutor);
+        CompletableFuture<List<User>> resultTask = task1.thenCombineAsync(task2,(users, users2) -> {users.addAll(users2);return users;},threadPoolExecutor);
+       List<User> userList = null;
+        if(!resultTask.isDone()){
+           System.out.println("我不等了,先吃饭!");
+       }else{
+           //userList = resultTask;
+       }
+
+
+
+
+    }
+
+    private CompletableFuture<List<User>> getTask(ThreadPoolExecutor threadPoolExecutor) {
+        CompletableFuture<List<User>> task = CompletableFuture.supplyAsync(() -> {
+            List<User> userList = Lists.newArrayList();
+            for (int i = 0; i < 10000; i++) {
+                userList.add(generateUser());
+            }
+            return userList;
+        }, threadPoolExecutor);
+        return task;
+    }
+
 
     private User generateUser() {
         User user = new User();
@@ -106,9 +135,8 @@ public class ThreadDemo extends BaseTest {
     }
 
 
-
-    public synchronized void add(List list,User user){
-        if(list.size()<10){
+    public synchronized void add(List list, User user) {
+        if (list.size() < 10) {
             list.add(user);
         }
     }
